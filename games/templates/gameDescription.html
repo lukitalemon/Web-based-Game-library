@@ -8,23 +8,75 @@
     />
 </head>
 <body>
+  <header id="header" class="sticky">
+    <div class="brand">|  Nexus  |  </div>
+    <div class="names">Luke Harrison | Min Ryou | Ethan Sio</div>
+    <nav class="navMenu">
+      <a href="#">Home</a>
+      <a href="#">Blog</a>
+      <a href="#">Work</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="searchBar">
+      <input type="text" placeholder="Search...">
+      <button>Search</button>
+    </div>
+  </header>
 
-      <header id="header">
-              <h1>CS235 2023: My Game Library</h1>
-              <div class="copyright">&copy; UPI1 | UPI2 | UPI3 (Write your full names or UPIs)</div>
-            </header>
+
             <div id="container">
               <main id="main">
+
+                <section class="hero">
+                  <div class="blurred-image"></div>
+                  <div class="game-image">
+                  <img src="{{ game.image_url }}" alt="game image">
+                  </div>
+                  <h2 class="game-title">{{ game.title }}</h2>
+                  <p class="price">${{ game.price }}</p>
+                </section>
+                
                 <div class="description">
                   <br>
-                    <h2>{{ game.title }}</h2>
+                    
                     <p><i>Release Date:</i> {{ game.release_date }} </p>
-                    <p><i>Price:</i> {{ game.price }}</p>
+                    
                     <p><i>About:</i> {{ game.description }} </p>
-                    <p><i>Image URL: </i><img src="{{ game.image_url }}" alt="game image"> </p>
+                    
+                    <p>
+                      The Waffle Generator
+                      Sometimes, silly programs have a less obvious useful purpose. Andrew Clarke takes his classic 'Waffle Generator', and provides it in various forms, including a CSS Stylesheet tester, and as a Generator for SQL Data Generator. The Waffle Generator puts text into your test database!
+                      
+                      Waffle
+                      This article provides the source of a utility, the Waffle Generator, which will fill your database or website with ridiculous and turgid prose. This is not, as you might initially suspect, designed as a crutch for desperate Bloggers, but to test out software. The perfect test data is as much like the real data as possible, but rather wilder, and more random.
+                      
+                      In this article, I provide the source for both a PHP version and a C# version of the Waffle Generator. I also show you how to make it into a custom generator for the new SQL Data Generator.
+                      
+                      A Brief History of the Waffle Generator
+                      I originally wrote the Waffle Generator way back in the mid 1980s, long before the Web. I started work on it when I first met the redoubtable ‘Phil Factor’. Even then, he had a strong anarchic streak to his nature. We were working in a large Multinational together, and both driven to screaming pitch by the poor use of English in company documents, marketing information, and in IT discussions and meetings. We developed our collection of words and phrases by noting down the ridiculous examples used in meetings during our work there as IT consultants, and incorporating them into the collection.
+                      
+                      Based on this word bank, The Waffle Generator produces reams and reams of text which, on first glance, looks like real, ponderous, prose; replete with clichés. The following paragraph typifies its output (try it for yourself here: Press F5 occasionally!).
+                      
+                      ‘Regarding the nature of any three-tier subjective classification, the total delivery presents extremely interesting challenges to the sanctioned Philosophical theme. The interface is of a interactive nature. To reiterate, the classic definition of the consolidation of the interpolation of antithesis underlines the essential paradigm of the negative aspects of any marginalised interface. It might seem reasonable to think of a proven solution to the performance objectives as involving the legitimate principal milieu. Nevertheless, a concept of what we have come to call the strategic goals provides a heterogeneous environment to the evidence of feeling. On the other hand, a realization the importance of the core business is reciprocated by the negative aspects of any proactive auxiliary teleology. There is probably no causal link between the three-phase empirical transformation and the principle of the diverse hardware environment. However the target population for the consolidation of the compatible central expression necessitates that urgent consideration should be applied to what is beginning to be termed the “ad-hoc inductive projection”. Based on integral subsystems, examination of inclusive instances provides a harmonic integration with the social dichotomy. This should be considered in the light of the functional baseline.’
+                      
+                      We chose this as a programming example because it is so simple, and because it demonstrates that the best way to produce language automata is to mimic the way we construct language. It displays a simple and valid use of recursion. Above all, it is fun to use. Obviously, the serious user will bring his own word and phrase-banks to bear on it.
+                      
+                      I put the Generator in the Public Domain and it was certainly the first of such programs to be so placed. Originally, it was written for a primitive C compiler to run on CP/M. From these humble beginnings, the program has taken on a life of its own, and is irrepressibly popular, unlike the vast majority of the code we write.
+                      
+                      It has been used, developed and exploited by two generations of IT people and has been translated into a variety of other languages. Phil, who has since been a great fan of this type of programming, has published a variant in SQL on Simple-Talk, called ‘The Excuse Generator’. There is also a PHP version that I wrote to test out CSS Stylesheets. The output is in strict ‘core’ HTML, and it is handy for checking that Stylesheets work with unpredictable sizes of text. You can get it here and I explain how to use it here.
+                      
+                      The Generator has been used in numerous, serious development projects. For a long time, BT at Martlesham Heath, UK, used the Waffle Generator to test comms lines. However, we’ve also had ‘thank you’ letters from desperate PhD students who bulked up their Thesis with this handy tool.
+                      
+                      The singular peak of achievement was when the output of the Waffle Generator was submitted by a prankster to the Journal of Theoretical Psycholinguistics, was praised by two independent referees and published. I still have the article. As a tribute, some phrases from this exercise are enshrined in the Generator’s word-bank.
+                      
+                      The Waffle Generator Source
+                      The program itself is very simple. Following is the basic C# code, which could slot straight into any C# application. Here, we sticking to the simplest approach of using static wordbanks But I once did a VB version, with a built-in Text editor with word-banks that could be read in and customized for writing school reports, academic essays, and thank-you letters.
+                      
+                      Unfortunately the source of the C# version is a bit too long for the body of the article but there is an HTML version here and a text version here.  The latest version is now on Codeplex with the other custom generators for SQL Data Generator  on Red Gate SQL Data Generator Community Generators
+                      
+                      Using the Waffle Generator with SQL Data Generato</p>
                 </div>
               </main>
             </div>
-
 </body>
 </html>

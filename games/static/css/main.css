@@ -1,25 +1,167 @@
+/* Import Montserrat font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+/* Reset some default styles */
+body, h1, h2, p, a {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
 #header {
-  padding: 20px;
-  background: 	#E6E6FA;
-  border-bottom: 1px solid #e0e4e8;
-  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  color: white;
+  padding: 30px;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100; 
+}
+
+#header .brand {
+  font-size: 20px;
   font-weight: bold;
+}
+
+#header .names {
+  font-size: 11px;
+}
+
+.navMenu {
+  display: flex;
+  align-items: left;
+}
+
+.navMenu a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  transition: color 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.navMenu a:hover {
+  color: #fddb3a;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+
+.searchBar input[type="text"] {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.searchBar button {
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+
+.hero {
+  position: relative;
+  height: 500px; /* Adjust this height as needed */
+}
+
+.blurred-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Use viewport width to cover the entire screen */
+  height: 800px; 
+  background-image: url('https://cdn.mos.cms.futurecdn.net/zJiqmQmGfAAiozV2e7f9zQ.jpg');
+  background-size: cover;
+  background-position: center; 
+  filter: blur(7px); /* Adjust the blur intensity as needed */
+  z-index: -1;
+  margin: 0%;
+  padding: 0%;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background-color: black;
+    opacity: 0.6; /* Adjust the opacity as needed */
+    z-index: 1;
+    margin: 0%;
+    padding: 0%;
+  }
+}
+
+.game-image {
+  position: absolute;
+  top: 50%;
+  left: 40px; /* Adjust the left distance */
+  transform: translateY(-50%);
+  max-width: 20%;
+  max-height: 50%; /* Set the maximum width */
+}
+
+.game-title {
+  font-size: 30px;
+  position: absolute;
+  top: 40%;
+  left: 40%; /* Adjust the left distance */
+  transform: translateY(-50%);
+  color: white;
+}
+
+.price {
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
   text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.copyright {
-  color: black;
-  font-size: 0.9em;
+.price:hover {
+  background-color: darkgreen;
 }
 
-.description p i {
-    font-family: 'Gill Sans';
-    font-weight: bold;
-    font-size: 18px;
-    text-transform: uppercase;
-    color:darkslateblue
-    }
+.description {
+  margin-top: 20px;
+  text-align: left;
+  color:white;
+  background-color: #232323;
+}
+
+
+.description p {
+  margin-bottom: 10px;
+}
 
 .description img {
-        vertical-align: top;
-    }
+  max-width: 100%;
+  height: auto;
+}
+
+
