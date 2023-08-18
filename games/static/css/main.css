@@ -224,3 +224,45 @@ font-size: 350%;
   margin-left: 90px;
 }
 
+.sidebar {
+  width: 20%;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.browse-main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  cursor: pointer;
+  padding: 10px 0;
+  transition: background-color 0.2s;
+}
+
+ul li:hover {
+  background-color: #ddd;
+}
+
+.games-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.game-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: white;
+  transition: transform 0.2s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}

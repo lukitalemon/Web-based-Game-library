@@ -1,6 +1,9 @@
 """Initialize Flask app."""
 
 from flask import Flask, render_template
+import games.adapters.memory_repository as repo 
+from games.adapters.memory_repository import populate
+from games.adapters.memory_repository import MemoryRepository 
 
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -25,6 +28,15 @@ def create_app():
     # Create the Flask app object.
     app = Flask(__name__)
 
+    # with app.app_context():
+    #     from .browse import browse
+    #     app.register_blueprint(browse.browse_blueprint)
+
+    # #create the MemoryRepository implementation for a memory-based repository
+    # repo.repo_instnace = MemoryRepository()
+    # #fill the repository from the CSV file
+    # populate(repo.repo_instance)
+
     @app.route('/')
     def show_gameDescription():
         some_game = create_some_game()
@@ -35,6 +47,8 @@ def create_app():
     def home():
         return render_template('home.html')
     
-    
+    @app.route('/browse')
+    def browse():
+        return render_template('browse.html')
 
     return app
