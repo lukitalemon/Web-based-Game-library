@@ -15,3 +15,5 @@ def browse_games():
         games=all_games,
         num_games=num_games
     )
+
+

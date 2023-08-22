@@ -20,10 +20,11 @@
     <h1>Game Library</h1>
     <div class="games-list">
       <div class="game-card">
+        {{num_games}}
         <h3>Game Title</h3>
-        <p>Release Date: Jan 1, 2023</p>
-        <p>Price: $29.99</p>
-        <p>Genre: Action</p>
+        {%for game in game_dict%}
+          {{game.title}}
+        {% end for %}
       </div>
       <!-- Add more game cards here -->
     </div>
