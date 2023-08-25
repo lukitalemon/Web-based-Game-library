@@ -38,8 +38,8 @@ def create_app():
     populate(data_path, repo.repo_instance)
 
     with app.app_context():
-        from browse import browse
-        app.register_blueprint(browse.browse_blueprint)
+        from games.browse import browse_page
+        app.register_blueprint(browse_page.browse_blueprint)
 
     # @app.route('/gameDesc')
     # def show_gameDescription():

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from games.browse.services import services
+from games.browse import services
 from games.adapters import repository as repo
 
 browse_blueprint = Blueprint('browse', __name__)
