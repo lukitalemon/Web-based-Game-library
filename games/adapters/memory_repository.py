@@ -38,8 +38,8 @@ class MemoryRepository(AbstractRepository):
     def get_games(self):
         return self.__games
     
-    def get_number_of_games(self):
-        return len(self.__games)
+    # def get_number_of_games(self):
+    #     return len(self.__games)
     
     def sort_games_by_date(self):
         sorted_games_date = sorted(self.__games, key=lambda r: datetime.strptime(r.release_date, "%b %d, %Y"), reverse=True)
@@ -48,7 +48,7 @@ class MemoryRepository(AbstractRepository):
     
     
 def populate(data_path: Path, repo: MemoryRepository):
-    games_file_name = str(Path(data_path) / "games.csv")
+    games_file_name = str(Path(data_path))
     reader = GameFileCSVReader(games_file_name)
     reader.read_csv_file()
 

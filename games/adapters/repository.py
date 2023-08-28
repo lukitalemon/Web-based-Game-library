@@ -19,9 +19,9 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
     def get_games(self):
         raise NotImplementedError
 
-    @abc.abstractmethod
-    def get_number_of_games(self):
-        raise NotImplementedError
+    # @abc.abstractmethod
+    # def get_number_of_games(self):
+    #     raise NotImplementedError
 
 
 

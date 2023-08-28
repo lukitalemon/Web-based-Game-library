@@ -2,9 +2,11 @@
 
 from flask import Flask, render_template
 from pathlib import Path
-import games.adapters.memory_repository as repo 
-from games.adapters.memory_repository import populate
-from games.adapters.memory_repository import MemoryRepository 
+import games.adapters.repository as repo 
+from games.adapters.memory_repository import populate, MemoryRepository
+
+
+
 
 
 
@@ -32,14 +34,24 @@ def create_app():
     app = Flask(__name__)
 
     data_path = Path('games') / 'adapters' / 'data' / 'games.csv'
-    # #create the MemoryRepository implementation for a memory-based repository
+
+    #create the MemoryRepository implementation for a memory-based repository
     repo.repo_instance = MemoryRepository()
-    # #fill the repository from the CSV file
+
+    #fill the repository from the CSV file
     populate(data_path, repo.repo_instance)
 
     with app.app_context():
-        from games.browse import browse_page
-        app.register_blueprint(browse_page.browse_blueprint)
+
+        from .home import home 
+        app.register_blueprint(home.home_blueprint)
+
+        from games.browse import browse
+        app.register_blueprint(browse.browse_blueprint)
+
+        
+
+
 
     # @app.route('/gameDesc')
     # def show_gameDescription():

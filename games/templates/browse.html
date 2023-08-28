@@ -19,13 +19,12 @@
   <main class="browse-main-content">
     <h1>Game Library</h1>
     <div class="games-list">
+      {% for game in games %}
       <div class="game-card">
-        {{num_games}}
-        <h3>Game Title</h3>
-        {%for game in game_dict%}
-          {{game.title}}
-        {% end for %}
+          {{game.title}} <br>
+          <img src="{{ game.image_url }}" >
       </div>
+      {% endfor %}
       <!-- Add more game cards here -->
     </div>
   </main>
