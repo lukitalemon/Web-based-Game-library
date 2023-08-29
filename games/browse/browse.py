@@ -8,7 +8,7 @@ browse_blueprint = Blueprint('browse_bp', __name__)
 @browse_blueprint.route('/browse', methods=['GET'])
 def browse():
     # num_games = services.get_number_of_games(repo.repo_instance)
-    all_games = services.get_games(repo.repo_instance)
+    all_games = services.get_games(repo.repo_instance, sorting_key=lambda game: game.title)
     num_games = services.get_num_games(repo.repo_instance)
     return render_template(
         'browse.html',

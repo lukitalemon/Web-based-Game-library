@@ -5,8 +5,12 @@ from games.domainmodel.model import Game
 #     return repo.get_number_of_games()
 
 
-def get_games(repo: AbstractRepository):
+def get_games(repo: AbstractRepository, sorting_key=None):
     games = repo.get_games()
+
+    if sorting_key:
+        games = sorted(games, key=sorting_key)
+
     game_dicts = []
     for game in games:
         game_dict = {
@@ -24,3 +28,4 @@ def get_num_games(repo: AbstractRepository):
     for game in games:
         number_of_games += 1
     return number_of_games
+
