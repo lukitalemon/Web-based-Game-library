@@ -298,15 +298,14 @@ font-size: 350%;
 
 /* Style for the "All" link */
 .browse-sidebar li:first-child a {
-  color: #ff5733;
+  color: #ffffff;
 }
 
 .browse-sidebar li:first-child a:hover {
-  color: #ff5733;
+  color: #c75656;
 }
 
-/* Active genre link style */
-.browse-sidebar li.active a {
+.browse-sidebar a.active {
   color: #ff5733;
 }
 
@@ -361,6 +360,8 @@ font-size: 350%;
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-left: 150px; 
+  margin-bottom: 50px;
 }
 
 .pagination a, .pagination strong {
@@ -368,8 +369,8 @@ font-size: 350%;
   padding: 5px 10px;
   margin: 0 2px;
   text-decoration: none;
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #393636;
+  color: #dfd9d9;
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
@@ -381,9 +382,9 @@ font-size: 350%;
 }
 
 .pagination strong {
-  background-color: #007bff;
+  background-color: #cbcaca;
   color: white;
-  border: 1px solid #007bff;
+  border: 1px solid #fdfdfd;
 }
 
 .pagination a:first-child, .pagination a:last-child {

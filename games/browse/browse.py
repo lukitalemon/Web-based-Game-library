@@ -31,6 +31,7 @@ def browse():
     # Get the subset of games for the current page
     games_on_page = all_games[start_index:start_index + max_games_per_page]
 
+
     return render_template(
         'browse.html',
         title='Browse Games | CS235 Game Library',
