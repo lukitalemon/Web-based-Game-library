@@ -233,7 +233,7 @@ font-size: 350%;
 
 /* Adjust the sidebar */
 .browse-sidebar {
-  width: 30px;
+  width: 200px;
   margin-right: 0; /* Remove right margin */
   padding: 10px 0;
   position: fixed; /* Fix the position of the sidebar */
@@ -241,6 +241,7 @@ font-size: 350%;
   left: 30px; /* Position it at the left */
   bottom: 0; /* Stretch it to the bottom */
   color: white;
+  overflow-y: auto;
 }
 
 
