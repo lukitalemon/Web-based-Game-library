@@ -9,6 +9,7 @@ browse_blueprint = Blueprint('browse_bp', __name__)
 def browse():
     # num_games = services.get_number_of_games(repo.repo_instance)
     all_games = services.get_games(repo.repo_instance)
+    
     return render_template(
         'browse.html',
         title='Browse Games | CS235 Game Library',  # Custom page title

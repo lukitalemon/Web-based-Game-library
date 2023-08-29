@@ -5,6 +5,7 @@
 body, h1, h2, p, a {
   margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 body {
@@ -224,16 +225,24 @@ font-size: 350%;
   margin-left: 90px;
 }
 
-.sidebar {
-  width: 20%;
-  background-color: #f4f4f4;
-  padding: 20px;
+
+.browse-page {
+  background-color: rgb(30, 27, 27);
 }
 
-.browse-main-content {
-  flex-grow: 1;
-  padding: 20px;
+/* Adjust the sidebar */
+.browse-sidebar {
+  width: 30px;
+  margin-right: 0; /* Remove right margin */
+  padding: 10px 0;
+  position: fixed; /* Fix the position of the sidebar */
+  top: 125px; /* Position it at the top */
+  left: 30px; /* Position it at the left */
+  bottom: 0; /* Stretch it to the bottom */
+  color: white;
 }
+
+
 
 ul {
   list-style-type: none;
@@ -242,27 +251,43 @@ ul {
 
 ul li {
   cursor: pointer;
-  padding: 10px 0;
+  padding: 6px 0;
   transition: background-color 0.2s;
 }
 
-ul li:hover {
-  background-color: #ddd;
-}
 
-.games-list {
+
+
+/* Game Grid Container */
+.games-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  gap: 10px 5px; /* Gap between rows and columns */
+  margin-left: 250px; /* Leave space for the sidebar */
+  margin-top: 50px;
+  padding-top: 0;
 }
 
+
+/* Adjust the maximum width of images */
+.games-grid img {
+  max-width: 100%; /* Adjust the width of images */
+}
+
+/* Game Card */
 .game-card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  background-color: white;
-  transition: transform 0.2s;
+  padding: 15px; /* Add more space around each card */
+  text-align: center;
+  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
 }
 
+/* Add space under each image */
+.game-card img {
+  margin-bottom: 10px; /* Adjust the space as needed */
+}
+
+/* Hover effect */
 .game-card:hover {
   transform: translateY(-5px);
 }
+
