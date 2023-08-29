@@ -17,7 +17,9 @@
     </ul>
   </aside>
   <main class="browse-main-content">
-    <div class="games-grid">
+    <h1>Game Library</h1>
+    <p>Total number of games: {{ number_of_games }}</p>
+    <div class="games-list">
       {% for game in games %}
       <div class="game-card">
           <img src="{{ game.image_url }}" alt="{{ game.title }}">

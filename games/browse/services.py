@@ -18,3 +18,9 @@ def get_games(repo: AbstractRepository):
         game_dicts.append(game_dict)
     return game_dicts 
 
+def get_num_games(repo: AbstractRepository):
+    games = repo.get_games()
+    number_of_games = 0
+    for game in games:
+        number_of_games += 1
+    return number_of_games
