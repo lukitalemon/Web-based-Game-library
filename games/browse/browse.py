@@ -12,7 +12,7 @@ def browse():
     all_genres = services.get_all_genres(repo.repo_instance)
 
     if genre:
-        all_games = services.get_games_by_genre(repo.repo_instance, genre)
+        all_games = services.get_games_by_genre(repo.repo_instance, genre, sorting_key=lambda game :game.title)
         num_games = len(all_games)
     else:
         all_games = services.get_games(repo.repo_instance, sorting_key=lambda game: game.title)  

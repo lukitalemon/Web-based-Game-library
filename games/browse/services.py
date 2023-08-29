@@ -28,8 +28,10 @@ def get_num_games(repo: AbstractRepository):
         number_of_games += 1
     return number_of_games
 
-def get_games_by_genre(repo: AbstractRepository, genre_name: str):
+def get_games_by_genre(repo: AbstractRepository, genre_name: str, sorting_key=None):
     games_in_genre = [game for game in repo.get_games() if any(genre_name.lower() == genre.genre_name.lower() for genre in game.genres)]
+    if sorting_key:
+        games_in_genre = sorted(games_in_genre, key=sorting_key)
     game_dicts = []
     for game in games_in_genre:
         game_dict = {
