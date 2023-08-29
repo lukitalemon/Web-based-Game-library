@@ -12,7 +12,9 @@ def get_game(repo: AbstractRepository, game_id):
         'title': game.title,
         'release_date': game.release_date,
         'image_url': game.image_url,
-        'price' : game.price
+        'price' : game.price,
+        'publisher' : game.publisher,
+        'description' : game.description
         # Add more attributes as needed
     }
 
