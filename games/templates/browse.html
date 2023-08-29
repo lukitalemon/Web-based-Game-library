@@ -7,20 +7,37 @@
 </head>
 <body class="browse-page">
     {% include 'navbar.html' %}
-    
-
-  <main class="browse-main-content">
     {% include 'aside.html' %}
-    <p class = "game-count"><i>Total: </i> {{ number_of_games }}</p>
-    <div class="games-grid">
-      {% for game in games %}
-      <div class="game-card">
-        <a href="{{ url_for('gameDescription_bp.gameDescription', game_id=game.game_id) }}">
-          <img src="{{ game.image_url }}" alt="{{ game.title }}">
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-  </main>
+    
+    <main class="browse-main-content">
+        <p class="game-count"><i>Total: </i> {{ number_of_games }}</p>
+        <div class="games-grid">
+            {% for game in games %}
+                <div class="game-card">
+                    <a href="{{ url_for('gameDescription_bp.gameDescription', game_id=game.game_id) }}">
+                        <img src="{{ game.image_url }}" alt="{{ game.title }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="pagination">
+          {% if current_page > 1 %}
+            <a href="{{ url_for('browse_bp.browse', genre=genre, page=current_page - 1) }}">Previous</a>
+          {% endif %}
+          
+          {% for page_num in range(1, num_pages + 1) %}
+            {% if page_num == current_page %}
+              <strong>{{ page_num }}</strong>
+            {% else %}
+              <a href="{{ url_for('browse_bp.browse', genre=genre, page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if current_page < num_pages %}
+            <a href="{{ url_for('browse_bp.browse', genre=genre, page=current_page + 1) }}">Next</a>
+          {% endif %}
+        </div>
+    </main>
 </body>
 </html>
