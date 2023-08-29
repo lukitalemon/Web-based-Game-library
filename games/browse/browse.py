@@ -51,14 +51,14 @@ def search():
     results = []
     
     if query:
-        results = services.search_games(repo.repo_instance, query)
-        all_genres = services.get_all_genres(repo.repo_instance)
         starting_page=1
         max_games_per_page = 40
-        num_games=len(results)
+        results = services.search_games(repo.repo_instance, query)
         page = int(request.args.get('page', starting_page))
-        num_pages = (num_games + max_games_per_page - 1) // max_games_per_page
+        all_genres = services.get_all_genres(repo.repo_instance)
         start_index = (page - 1) * max_games_per_page
+        num_games=len(results)
+        num_pages = (num_games + max_games_per_page - 1) // max_games_per_page
         games_on_page = results[start_index:start_index + max_games_per_page]
 
         return render_template(
@@ -67,11 +67,11 @@ def search():
             heading='Browse Games',
             query=query,
             results=results,
-            current_page=page,
-            num_pages=num_pages,
             games=games_on_page,
             number_of_games=num_games,
-            max_games_per_page=20,
+            current_page=page,
+            num_pages=num_pages,
+            max_games_per_page=max_games_per_page,
             all_genres = all_genres,
 
         )
