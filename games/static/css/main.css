@@ -264,7 +264,7 @@ ul li {
   grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
   gap: 10px 5px; /* Gap between rows and columns */
   margin-left: 250px; /* Leave space for the sidebar */
-  margin-top: 50px;
+  margin-top: 75px;
   padding-top: 0;
 }
 
@@ -281,6 +281,11 @@ ul li {
   transition: transform 0.2s ease-in-out; /* Smooth hover effect */
 }
 
+.game-count {
+  position: fixed;
+  margin-left: 500px ;
+  color: white;
+}
 /* Add space under each image */
 .game-card img {
   margin-bottom: 10px; /* Adjust the space as needed */
