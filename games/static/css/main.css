@@ -75,6 +75,10 @@ body {
   margin-left: 10px;
 }
 
+.game-description {
+  background-color: black;
+}
+
 .hero {
   position: relative;
   height: 500px; /* Adjust this height as needed */
@@ -86,6 +90,7 @@ body {
   left: 0;
   width: 100%; /* Use viewport width to cover the entire screen */
   height: 600px; 
+  background-color: black; /* Add a background color */
   background-image: url('{{ game.image_url }}');;
   background-size: cover;
   background-position: center; 
@@ -93,6 +98,8 @@ body {
   z-index: -1;
   margin: 0%;
   padding: 0%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 
 
   &:before {
@@ -101,10 +108,10 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 120%;
+    height: 600px;
     background-color: black;
     opacity: 0.6; /* Adjust the opacity as needed */
-    z-index: 1;
+    z-index: -1;
     margin: 0%;
     padding: 0%;
   }
@@ -123,6 +130,15 @@ body {
   font-size: 30px;
   position: absolute;
   top: 40%;
+  left: 40%; /* Adjust the left distance */
+  transform: translateY(-50%);
+  color: white;
+}
+
+.game-publisher {
+  font-size: 17px;
+  position: absolute;
+  top: 43%;
   left: 40%; /* Adjust the left distance */
   transform: translateY(-50%);
   color: white;
@@ -149,16 +165,24 @@ body {
   background-color: darkgreen;
 }
 
+.about {
+  align-items: center;
+  text-align: center;
+  text-decoration: underline;
+}
+
 .description {
-  margin-top: 20px;
+  margin-top: 0;
   text-align: left;
+  height: 500px;
   color:white;
   background-color: #232323;
 }
 
 
 .description p {
-  margin-bottom: 10px;
+  padding: 20px;
+  
 }
 
 .description img {
