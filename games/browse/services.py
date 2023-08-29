@@ -1,9 +1,6 @@
 from games.adapters.repository import AbstractRepository
 from games.domainmodel.model import Game
 
-# def get_number_of_games(repo: AbstractRepository):
-#     return repo.get_number_of_games()
-
 
 def get_games(repo: AbstractRepository, sorting_key=None):
     games = repo.get_games()

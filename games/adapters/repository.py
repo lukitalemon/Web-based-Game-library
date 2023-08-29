@@ -18,6 +18,11 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
     @abc.abstractmethod
     def get_games(self):
         raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_game(self, game_id : int):
+        raise NotImplementedError
+
 
     # @abc.abstractmethod
     # def get_number_of_games(self):
