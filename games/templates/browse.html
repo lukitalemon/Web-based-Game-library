@@ -7,15 +7,8 @@
 </head>
 <body class="browse-page">
     {% include 'navbar.html' %}
-  <aside class="browse-sidebar">
-    <h2>GENRES</h2>
-    <ul>
-      <li>Action</li>
-      <li>Adventure</li>
-      <li>RPG</li>
-      <!-- Add more genres here -->
-    </ul>
-  </aside>
+    {% include 'aside.html' %}
+
   <main class="browse-main-content">
     <p class = "game-count">Total number of games: {{ number_of_games }}</p>
     <div class="games-grid">
