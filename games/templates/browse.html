@@ -7,10 +7,11 @@
 </head>
 <body class="browse-page">
     {% include 'navbar.html' %}
-    {% include 'aside.html' %}
+    
 
   <main class="browse-main-content">
-    <p class = "game-count">Total number of games: {{ number_of_games }}</p>
+    {% include 'aside.html' %}
+    <p class = "game-count"><i>Total: </i> {{ number_of_games }}</p>
     <div class="games-grid">
       {% for game in games %}
       <div class="game-card">
