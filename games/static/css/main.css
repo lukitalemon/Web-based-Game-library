@@ -85,14 +85,15 @@ body {
   top: 0;
   left: 0;
   width: 100%; /* Use viewport width to cover the entire screen */
-  height: 800px; 
-  background-image: url('https://cdn.mos.cms.futurecdn.net/zJiqmQmGfAAiozV2e7f9zQ.jpg');
+  height: 600px; 
+  background-image: url('{{ game.image_url }}');;
   background-size: cover;
   background-position: center; 
   filter: blur(7px); /* Adjust the blur intensity as needed */
   z-index: -1;
   margin: 0%;
   padding: 0%;
+
 
   &:before {
     content: "";
