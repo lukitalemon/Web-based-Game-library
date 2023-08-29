@@ -6,8 +6,14 @@
       <a href="{{ url_for('browse_bp.browse') }}">All Games</a>
       <a href="#">About Us</a>
     </nav>
-    <div class="searchBar">
-      <input type="text" placeholder="Search...">
-      <button>Search</button>
-    </div>
+    <form action="{{ url_for('browse_bp.search') }}" method="GET" class="search-form">
+      <input type="text" name="search_query" placeholder="Search for games...">
+      <select name="type">
+        <option value="all">All</option>
+        <option value="title">Title</option>
+        <option value="publisher">Publisher</option>
+        <option value="genre">Genre</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
 </header>

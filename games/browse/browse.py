@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, url_for, render_template, request, redirect
 from games.browse import services
 from games.adapters import repository as repo
 
@@ -44,3 +44,38 @@ def browse():
         all_genres = all_genres,
         genre = genre
     )
+
+@browse_blueprint.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('search_query')
+    results = []
+    
+    if query:
+        results = services.search_games(repo.repo_instance, query)
+        all_genres = services.get_all_genres(repo.repo_instance)
+        starting_page=1
+        max_games_per_page = 40
+        num_games=len(results)
+        page = int(request.args.get('page', starting_page))
+        num_pages = (num_games + max_games_per_page - 1) // max_games_per_page
+        start_index = (page - 1) * max_games_per_page
+        games_on_page = results[start_index:start_index + max_games_per_page]
+
+        return render_template(
+            'searchBar.html',
+            title='Browse Games | CS235 Game Library',
+            heading='Browse Games',
+            query=query,
+            results=results,
+            current_page=page,
+            num_pages=num_pages,
+            games=games_on_page,
+            number_of_games=num_games,
+            max_games_per_page=20,
+            all_genres = all_genres,
+
+        )
+    else:
+        return redirect(url_for('browse_bp.browse'))
+
+

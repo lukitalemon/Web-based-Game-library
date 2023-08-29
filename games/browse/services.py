@@ -1,5 +1,7 @@
 from games.adapters.repository import AbstractRepository
 from games.domainmodel.model import Game
+from flask import  request
+
 
 
 def get_games(repo: AbstractRepository, sorting_key=None):
@@ -52,3 +54,24 @@ def get_all_genres(repo: AbstractRepository):
         all_genres.update(genre.genre_name for genre in game.genres)
 
     return sorted(all_genres)
+
+def search_games(repo: AbstractRepository, query: str):
+    results = []
+    all_games = get_games(repo, sorting_key=lambda game:game.title)
+    query = query.lower()
+    type = request.args.get('type')
+
+    for game in all_games:
+        if type == 'all':
+            if (query in game['title'].lower()) or (game.get('publisher') and query in game['publisher'].lower()) or (any(query in genre.lower() for genre in game['genres'])):
+                results.append(game)
+        elif type == 'title':
+            if (query in game['title'].lower()):
+                results.append(game)
+        elif type == 'publisher':
+            if (game.get('publisher') and query in game['publisher'].lower()):
+                results.append(game)
+        elif type == 'genre':
+            if (any(query in genre.lower() for genre in game['genres'])):
+                results.append(game)
+    return results
