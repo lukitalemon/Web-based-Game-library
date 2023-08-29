@@ -14,13 +14,15 @@ def get_games(repo: AbstractRepository, sorting_key=None):
     game_dicts = []
     for game in games:
         game_dict = {
-            'game_id' : game.game_id, 
-            'title' : game.title, 
-            'game_url' : game.release_date, 
-            'image_url' : game.image_url
+            'game_id': game.game_id,
+            'title': game.title,
+            'game_url': game.release_date,
+            'image_url': game.image_url,
+            'genres': [genre.genre_name for genre in game.genres]
         }
         game_dicts.append(game_dict)
-    return game_dicts 
+    return game_dicts
+
 
 def get_num_games(repo: AbstractRepository):
     games = repo.get_games()
@@ -29,3 +31,25 @@ def get_num_games(repo: AbstractRepository):
         number_of_games += 1
     return number_of_games
 
+def get_games_by_genre(repo: AbstractRepository, genre_name: str):
+    games_in_genre = [game for game in repo.get_games() if any(genre_name.lower() == genre.genre_name.lower() for genre in game.genres)]
+    game_dicts = []
+    for game in games_in_genre:
+        game_dict = {
+            'game_id': game.game_id,
+            'title': game.title,
+            'game_url': game.release_date,
+            'image_url': game.image_url,
+            'genres': [genre.genre_name for genre in game.genres]
+        }
+        game_dicts.append(game_dict)
+    return game_dicts
+
+
+def get_all_genres(repo: AbstractRepository):
+    all_genres = set()
+
+    for game in repo.get_games():
+        all_genres.update(genre.genre_name for genre in game.genres)
+
+    return sorted(all_genres)

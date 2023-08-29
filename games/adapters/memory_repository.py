@@ -28,6 +28,9 @@ class MemoryRepository(AbstractRepository):
     def add_genre(self, genre: Genre):
         if isinstance(genre, Genre) and genre not in self.__genres:
             insort_left(self.__genres, genre)
+            genre_name_lower = genre.genre_name.lower()  # Convert the genre name to lowercase
+            self.genres_dict[genre_name_lower] = []  # Initialize an empty list for this lowercase genre name
+
 
     def get_game(self, target_id: int):
         for game in self.__games:
@@ -44,6 +47,12 @@ class MemoryRepository(AbstractRepository):
     def sort_games_by_date(self):
         sorted_games_date = sorted(self.__games, key=lambda r: datetime.strptime(r.release_date, "%b %d, %Y"), reverse=True)
         return sorted_games_date
+    
+    def get_games_by_genre(self, genre_name):
+        genre_name = genre_name.lower()
+        games_in_genre = [game for game in self.__games if genre_name in game.genres]
+        return games_in_genre
+
     
     
     
@@ -68,8 +77,3 @@ def populate(data_path: Path, repo: MemoryRepository):
 
     for publisher in reader.dataset_of_publishers:
         repo.add_publisher(publisher)
-
-
-
-
-    

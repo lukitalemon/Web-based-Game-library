@@ -10,6 +10,7 @@ from games.adapters.memory_repository import populate, MemoryRepository
 
 
 
+
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
 from games.domainmodel.model import Game
@@ -66,5 +67,6 @@ def create_app():
     # @app.route('/browse')
     # def browse():
     #     return render_template('browse.html')
+    
     
     return app
