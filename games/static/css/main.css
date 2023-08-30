@@ -259,13 +259,14 @@ font-size: 350%;
 .browse-sidebar {
   width: 200px;
   margin-right: 0; /* Remove right margin */
-  padding: 10px 0;
+  padding: 10px ;
   position: fixed; /* Fix the position of the sidebar */
   top: 125px; /* Position it at the top */
-  left: 30px; /* Position it at the left */
+  left: 20px; /* Position it at the left */
   bottom: 0; /* Stretch it to the bottom */
   color: white;
   overflow-y: auto;
+  background-color: #2c2929;
 }
 
 
@@ -274,7 +275,7 @@ font-size: 350%;
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: white;
-  margin-left: 5%;
+  margin-left: 0%;
 }
 
 .browse-sidebar ul {
@@ -283,7 +284,7 @@ font-size: 350%;
 }
 
 .browse-sidebar li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .browse-sidebar a {
@@ -301,12 +302,10 @@ font-size: 350%;
   color: #ffffff;
 }
 
-.browse-sidebar li:first-child a:hover {
-  color: #c75656;
-}
-
-.browse-sidebar a.active {
-  color: #ff5733;
+/* Add this to your stylesheet */
+.browse-sidebar ul li a.selected {
+  color: yellow ; /* Change the text color to ensure visibility */
+  font-weight: bold; /* You can modify the styles as needed */
 }
 
 

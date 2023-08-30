@@ -42,7 +42,8 @@ def browse():
         num_pages=num_pages,
         max_games_per_page=max_games_per_page,
         all_genres = all_genres,
-        genre = genre
+        genre = genre,
+        selected_genre = genre
     )
 
 @browse_blueprint.route('/search', methods=['GET', 'POST'])

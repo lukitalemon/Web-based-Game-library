@@ -1,4 +1,4 @@
-<aside class="browse-sidebar">
+<!-- <aside class="browse-sidebar">
   <h2>GENRES</h2>
   <ul>
     <li><a href="{{ url_for('browse_bp.browse') }}">All</a></li>
@@ -6,7 +6,18 @@
       <li><a href="{{ url_for('browse_bp.browse', genre=genre) }}">{{ genre }}</a></li>
     {% endfor %}
   </ul>
+</aside> -->
+
+<aside class="browse-sidebar">
+  <h2>GENRES</h2>
+  <ul>
+    <li><a href="{{ url_for('browse_bp.browse') }}">All</a></li>
+    {% for genre in all_genres %}
+      <li><a href="{{ url_for('browse_bp.browse', genre=genre) }}" class="{% if selected_genre == genre %}selected{% endif %}">{{ genre }}</a></li>
+    {% endfor %}
+  </ul>
 </aside>
+
 
 
 
