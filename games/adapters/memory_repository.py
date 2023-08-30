@@ -13,6 +13,7 @@ class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.__games = list()
         self.__genres = list()
+        self.__tile = list()
         self.__publishers = list()
         self.genres_dict = dict()
         self.publishers_dict = dict()
@@ -47,6 +48,13 @@ class MemoryRepository(AbstractRepository):
         genre_name = genre_name.lower()
         games_in_genre = [game for game in self.__games if genre_name in game.genres]
         return games_in_genre
+
+    def get_games_by_title(self, title_name):
+        title_name = title_name.lower()
+        games_with_title = [game for game in self.__games if title_name in game.title]
+        return games_with_title
+
+
 
     
     
