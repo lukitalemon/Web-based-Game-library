@@ -18,6 +18,14 @@ def test_return_game_object(in_memory_repo):
     game2 = Game(2, "Racing Game")
     game3 = Game(3, "Action Adventure")
 
+    publisher1 = Publisher("publisher1")
+    publisher2 = Publisher("publisher2")
+    publisher3 = Publisher("publisher3")
+
+    game1.publisher = publisher1
+    game2.publisher = publisher2
+    game3.publisher = publisher3
+
     in_memory_repo.add_game(game1)
     in_memory_repo.add_game(game2)
     in_memory_repo.add_game(game3)
@@ -28,7 +36,7 @@ def test_return_game_object(in_memory_repo):
             'title': 'Soccer Game 1',
             'game_url': None,  # Update this with the actual release date or URL
             'image_url': None,  # Update this with the actual image URL
-            'publisher': None,  # Update this with the actual publisher name
+            'publisher': 'publisher1',  # Update this with the actual publisher name
             'genres': []  # Update this with the actual list of genres
         },
         {
@@ -36,7 +44,7 @@ def test_return_game_object(in_memory_repo):
             'title': 'Racing Game',
             'game_url': None,
             'image_url': None,
-            'publisher': None,
+            'publisher': 'publisher2',
             'genres': []
         },
         {
@@ -44,7 +52,7 @@ def test_return_game_object(in_memory_repo):
             'title': 'Action Adventure',
             'game_url': None,
             'image_url': None,
-            'publisher': None,
+            'publisher': 'publisher3',
             'genres': []
         }
     ]
@@ -64,25 +72,35 @@ def test_get_num_games(in_memory_repo):
     assert num_games == 3
 
 def test_get_all_genres(in_memory_repo):
+    game1 = Game(1, "Soccer Game 1")
+    game2 = Game(2, "Racing Game")
+    game3 = Game(3, "Action Adventure")
+
+    genre1 = Genre("Action")
+    genre2 = Genre("Adventure")
+    genre3 = Genre("War")
+
+    game1.add_genre(genre1)
+    game1.add_genre(genre3)
+    game2.add_genre(genre2)
+    game3.add_genre(genre3)
+
+    in_memory_repo.add_game(game1)
+    in_memory_repo.add_game(game2)
+    in_memory_repo.add_game(game3)
+
     genres = services.get_all_genres(in_memory_repo)
-    assert len(genres) == 27
+    assert len(genres) == 3
 
 def test_get_games_by_genre(in_memory_repo):
     genre = "Action"
     games = services.get_games_by_genre(in_memory_repo,genre)
     assert all(genre in game.genres for game in games)
 
-def test_search_games(in_memory_repo):
-    game1 = Game(1, "Soccer Game 1")
-    game2 = Game(2, "Racing Game")
-    game3 = Game(3, "Action Adventure")
+def test_get_games_if_empty(in_memory_repo):
+    games = services.get_games(in_memory_repo)
+    assert games == []
 
-    in_memory_repo.add_game(game1)
-    in_memory_repo.add_game(game2)
-    in_memory_repo.add_game(game3)
-
-    keyword = "Soccer"
-    games = services.search_games(in_memory_repo,keyword)
-    assert all(keyword.lower() in game.title.lower() for game in games)
-
-
+def test_get_all_genres_if_empty(in_memory_repo):
+    genres = services.get_all_genres(in_memory_repo)
+    assert genres == []

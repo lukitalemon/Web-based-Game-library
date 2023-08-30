@@ -16,7 +16,7 @@ def in_memory_repo():
 
 def test_add_game(in_memory_repo):
     game1 = Game(2, "game")
-    in_memory_repo.add_game(game)
+    in_memory_repo.add_game(game1)
     retrieved_game = in_memory_repo.get_game(2)
     assert retrieved_game is game1
 
@@ -25,6 +25,10 @@ def test_retrive_game(in_memory_repo):
     in_memory_repo.add_game(game1)
     retrieved_game = in_memory_repo.get_game(2)
     assert retrieved_game is game1
+
+def test_get_game_if_none(in_memory_repo):
+    retrieved_game = in_memory_repo.get_game(2)
+    assert retrieved_game == None
 
 def test_correct_num_objects(in_memory_repo):
     game1 = Game(2, "game")
@@ -98,8 +102,6 @@ def test_search_by_title_or_pub(in_memory_repo):
     game2 = Game(4, "game2")
     game3 = Game(6, "fake")
 
-    genre
-
     in_memory_repo.add_game(game1)
     in_memory_repo.add_game(game2)
     in_memory_repo.add_game(game3)
@@ -133,3 +135,7 @@ def test_search_by_genre(in_memory_repo):
     sorted_games = in_memory_repo.get_games_by_genre("Production")
 
     print(len(sorted_games))
+
+
+
+
