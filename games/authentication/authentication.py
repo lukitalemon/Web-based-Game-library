@@ -12,10 +12,7 @@ from functools import wraps
 import games.authentication.services as services
 import games.adapters.repository as repo
 
-# Configure Blueprint.
-authentication_blueprint = Blueprint(
-    'authentication_bp', __name__, url_prefix='/authentication')
-
+authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication') 
 
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
@@ -35,7 +32,7 @@ def register():
 
     # For a GET or a failed POST request, return the Registration Web page.
     return render_template(
-        'credentials.html',
+        '/credentials.html',
         title='Register',
         form=form,
         user_name_error_message=user_name_not_unique,
@@ -73,7 +70,7 @@ def login():
 
     # For a GET or a failed POST, return the Login Web page.
     return render_template(
-        'credentials.html',
+        '/credentials.html',
         title='Login',
         user_name_error_message=user_name_not_recognised,
         password_error_message=password_does_not_match_user_name,

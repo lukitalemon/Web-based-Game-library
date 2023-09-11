@@ -34,7 +34,6 @@ def get_user(user_name: str, repo: AbstractRepository):
 
     return user_to_dict(user)
 
-
 def authenticate_user(user_name: str, password: str, repo: AbstractRepository):
     authenticated = False
 
@@ -50,7 +49,7 @@ def authenticate_user(user_name: str, password: str, repo: AbstractRepository):
 
 def user_to_dict(user: User):
     user_dict = {
-        'user_name': user.user_name,
+        'user_name': user.username,
         'password': user.password
     }
     return user_dict
