@@ -32,6 +32,9 @@ def create_app():
         from games.gameDescription import gameDescription
         app.register_blueprint(gameDescription.gameDescription_blueprint)
 
+        from games.profile import profile
+        app.register_blueprint(profile.profile_blueprint)
+
         
 
 

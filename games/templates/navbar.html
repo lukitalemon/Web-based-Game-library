@@ -4,7 +4,7 @@
     <nav class="navMenu">
       <a href="{{ url_for('home_bp.home') }}">Home</a>
       <a href="{{ url_for('browse_bp.browse') }}">All Games</a>
-      <a href="#">About Us</a>
+      <a href="{{ url_for('profile_bp.profile') }}">Profile</a>
     </nav>
     <form action="{{ url_for('browse_bp.search') }}" method="GET" class="search-form">
       <input type="text" name="search_query" placeholder="Search for games...">
