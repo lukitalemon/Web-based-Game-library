@@ -13,6 +13,8 @@ def create_app():
     # Create the Flask app object.
     app = Flask(__name__)
 
+    app.config.from_object('config.Config')
+
     data_path = Path('games') / 'adapters' / 'data' / 'games.csv'
 
     #create the MemoryRepository implementation for a memory-based repository
@@ -34,6 +36,9 @@ def create_app():
 
         from games.profile import profile
         app.register_blueprint(profile.profile_blueprint)
+
+        from games.authentication import authentication
+        app.register_blueprint(authentication.authentication_blueprint)
     
     
     return app
