@@ -6,8 +6,10 @@ from bisect import bisect_left, insort_left
 from datetime import datetime
 
 from games.adapters.repository import AbstractRepository, RepositoryException
-from games.domainmodel.model import Game, Genre, Publisher
+from games.domainmodel.model import Game, Genre, Publisher, User
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
+
+from werkzeug.security import generate_password_hash
 
 class MemoryRepository(AbstractRepository):
     def __init__(self):
@@ -17,6 +19,13 @@ class MemoryRepository(AbstractRepository):
         self.__publishers = list()
         self.genres_dict = dict()
         self.publishers_dict = dict()
+        self.__users = list()
+
+    def add_user(self, user: User):
+        self.__users.append(user)
+
+    def get_user(self, user_name) -> User:
+        return next((user for user in self.__users if user.user_name == user_name), None)
 
     def add_game(self, game: Game):
         if isinstance(game, Game) and game not in self.__games:

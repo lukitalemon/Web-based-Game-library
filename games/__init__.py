@@ -34,11 +34,6 @@ def create_app():
 
         from games.profile import profile
         app.register_blueprint(profile.profile_blueprint)
-
-        
-
-
-
     
     
     return app
