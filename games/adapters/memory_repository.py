@@ -6,7 +6,7 @@ from bisect import bisect_left, insort_left
 from datetime import datetime
 
 from games.adapters.repository import AbstractRepository, RepositoryException
-from games.domainmodel.model import Game, Genre, Publisher, User
+from games.domainmodel.model import Game, Genre, Publisher, User, Review
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 
 from werkzeug.security import generate_password_hash
@@ -20,6 +20,7 @@ class MemoryRepository(AbstractRepository):
         self.genres_dict = dict()
         self.publishers_dict = dict()
         self.__users = list()
+        self.__comments = list()
 
     def add_user(self, user: User):
         self.__users.append(user)
@@ -63,7 +64,13 @@ class MemoryRepository(AbstractRepository):
         games_with_title = [game for game in self.__games if title_name in game.title]
         return games_with_title
 
+    def add_comment(self, comment: Review):
+        # call parent class first, add_comment relies on implementation of code common to all derived classes
+        super().add_comment(comment)
+        self.__comments.append(comment)
 
+    def get_comments(self):
+        return self.__comments
 
     
     

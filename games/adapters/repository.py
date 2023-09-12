@@ -1,7 +1,7 @@
 import abc 
 from typing import List
 
-from games.domainmodel.model import Game, User
+from games.domainmodel.model import Game, User, Review
 
 repo_instance = None
 
@@ -34,6 +34,24 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
     
     @abc.abstractmethod
     def get_game(self, game_id : int):
+        raise NotImplementedError
+    
+
+    @abc.abstractmethod
+    def add_comment(self, comment: Review):
+        """ Adds a Comment to the repository.
+
+        If the Comment doesn't have bidirectional links with an game and a User, this method raises a
+        RepositoryException and doesn't update the repository.
+        """
+        if comment.user is None or comment not in comment.user.comments:
+            raise RepositoryException('Comment not correctly attached to a User')
+        if comment.game is None or comment not in comment.game.comments:
+            raise RepositoryException('Comment not correctly attached to an game')
+
+    @abc.abstractmethod
+    def get_comments(self):
+        """ Returns the Comments stored in the repository. """
         raise NotImplementedError
     
 

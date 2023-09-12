@@ -1,5 +1,16 @@
 from games.adapters.repository import AbstractRepository
-from games.domainmodel.model import Game
+from games.domainmodel.model import Game, Review 
+
+
+
+class NonExistentGameException(Exception):
+    pass
+
+
+class UnknownUserException(Exception):
+    pass
+
+
 
 def get_game(repo: AbstractRepository, game_id):
     game = repo.get_game(game_id)
@@ -19,4 +30,39 @@ def get_game(repo: AbstractRepository, game_id):
     }
 
     return game_details
+
+def add_comment(game_id: int, comment_text: str, user_name: str, repo: AbstractRepository):
+    # Check that the game exists.
+    game = repo.get_game(game_id)
+    if game is None:
+        raise NonExistentGameException
+
+    user = repo.get_user(user_name)
+    if user is None:
+        raise UnknownUserException
+
+    # Create comment.
+    comment = comment(comment_text)
+
+    # Update the repository.
+    repo.add_comment(comment)
+
+
+def get_comments_for_game(game_id, repo: AbstractRepository):
+    game = repo.get_game(game_id)
+
+    if game is None:
+        raise NonExistentGameException
+
+    return comment_to_dict(game.comments)
+
+
+def comment_to_dict(comment: Review):
+    comment_dict = {
+        'user_name': comment.user.user_name,
+        'game_id': comment.game.id,
+        'comment_text': comment.comment,
+        'timestamp': comment.timestamp
+    }
+    return comment_dict
 

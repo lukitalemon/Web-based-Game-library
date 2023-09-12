@@ -466,3 +466,32 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #b9b8b8;
 }
+
+/* Style the comment box */
+.comment-box {
+  margin-top: 20px; /* Add some space above the comment box */
+}
+
+.comment-box form {
+  margin-bottom: 20px; /* Add space below the comment form */
+}
+
+.comment-box .form-field {
+  margin-bottom: 10px; /* Add space between the comment input and errors */
+}
+
+.comment-box .errors {
+  color: red; /* Style error messages in red */
+  list-style-type: none; /* Remove bullet points from error list */
+}
+
+.comment-box p {
+  margin-bottom: 5px; /* Add space between comments */
+}
+
+
+
+
+
+
+
