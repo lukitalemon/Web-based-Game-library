@@ -34,29 +34,9 @@
                     <p><i></i> {{ game.description }} </p>
                   
                 </div>
-                <div class="comment-box">
-                  <form action="{{handler_url}}" method="post">
-                      {{form.game_id}}  <!-- Need to include this hidden field as it tracks the article being commented. -->
-                      {{form.csrf_token}} <!-- Need to include this token - Flask WTForms requires it. -->
-                      <br>
-                      <div class ="form-field">{{form.comment.label}} </br>{{form.comment(size = 100, placeholder="type your comment", class="textarea", cols="50", rows="6", wrap="hard")}}
-                          {% if form.comment.errors %}
-                              <ul class="errors">
-                              {% for error in form.comment.errors %}
-                                  <li>{{error}}</li>
-                              {% endfor %}
-                              </ul>
-                          {% endif %}
-                      </div>
-                      {{ form.submit }}
-                  </form>
-                  <br><br><br><br>
-                  <div style="clear:both">
-                      {% for comment in game.comments %}
-                          <p>{{comment.comment_text}}, by {{comment.user_name}}</p>
-                      {% endfor %}
-                  </div>
-              </div>
+
+                {% include 'review.html' %}
+
                
               </main>
             </div>
