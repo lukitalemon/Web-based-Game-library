@@ -7,15 +7,12 @@
       rel="stylesheet" href="../static/css/main.css"
     />
 </head>
-<body class="game-description">
+<body>
   {% include 'navbar.html' %}
-            <div id="container">
+            <div class="game-description>
               <main id="main">
-
-
                 <section class="hero">
                   <div class="blurred-image" style="background-image: url('{{ game.image_url }}');"></div>
-
                   <div class="game-image">
                   <img src="{{ game.image_url }}" alt="game image">
                   </div>
@@ -34,10 +31,7 @@
                     <p><i></i> {{ game.description }} </p>
                   
                 </div>
-
                 {% include 'review.html' %}
-
-               
               </main>
             </div>
 </body>
