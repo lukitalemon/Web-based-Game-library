@@ -243,13 +243,16 @@ font-size: 350%;
   font-size: 16px;
   color: white;
   text-align: center;
+  text-align: center;
   margin-top: 35vh;
   margin-left: 90px;
 }
 
-
 .browse-page {
   background-color: rgb(30, 27, 27);
+  padding:0;
+  margin:0;
+  height:100%;
 }
 
 /* Adjust the sidebar */
