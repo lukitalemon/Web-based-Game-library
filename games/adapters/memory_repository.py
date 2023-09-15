@@ -15,7 +15,7 @@ class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.__games = list()
         self.__genres = list()
-        self.__tile = list()
+        self.__title = list()
         self.__publishers = list()
         self.genres_dict = dict()
         self.publishers_dict = dict()
@@ -25,8 +25,8 @@ class MemoryRepository(AbstractRepository):
     def add_user(self, user: User):
         self.__users.append(user)
 
-    def get_user(self, username) -> User:
-        return next((user for user in self.__users if user.username == username), None)
+    def get_user(self, user_name) -> User:
+        return next((user for user in self.__users if user.username == user_name), None)
 
     def add_game(self, game: Game):
         if isinstance(game, Game) and game not in self.__games:
@@ -66,7 +66,7 @@ class MemoryRepository(AbstractRepository):
 
     def add_comment(self, comment: Review):
         # call parent class first, add_comment relies on implementation of code common to all derived classes
-        super().add_comment(comment)
+        super().comment(comment)
         self.__comments.append(comment)
 
     def get_comments(self):

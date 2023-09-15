@@ -28,6 +28,9 @@ def create_app():
         from .home import home 
         app.register_blueprint(home.home_blueprint)
 
+        from games.authentication import authentication
+        app.register_blueprint(authentication.authentication_blueprint)
+
         from games.browse import browse
         app.register_blueprint(browse.browse_blueprint)
 
@@ -37,8 +40,7 @@ def create_app():
         from games.profile import profile
         app.register_blueprint(profile.profile_blueprint)
 
-        from games.authentication import authentication
-        app.register_blueprint(authentication.authentication_blueprint)
+        
     
     
     return app

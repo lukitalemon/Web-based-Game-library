@@ -12,6 +12,8 @@ from functools import wraps
 import games.authentication.services as services
 import games.adapters.repository as repo
 
+from pprint import pprint
+
 authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication') 
 
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
@@ -51,6 +53,10 @@ def login():
         # Use the service layer to lookup the user.
         try:
             user = services.get_user(form.user_name.data, repo.repo_instance)
+
+            print(f"User from repository: {user}")
+            print(f"User input username: {form.user_name.data}")
+            print(f"User input password: {form.password.data}")
 
             # Authenticate user.
             services.authenticate_user(user['user_name'], form.password.data, repo.repo_instance)

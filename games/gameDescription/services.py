@@ -1,17 +1,12 @@
 from games.adapters.repository import AbstractRepository
-from games.domainmodel.model import Game, Review 
+from games.domainmodel.model import Game, Review, make_comment
 from typing import List, Iterable
-
-
 
 class NonExistentGameException(Exception):
     pass
 
-
 class UnknownUserException(Exception):
     pass
-
-
 
 def get_game(repo: AbstractRepository, game_id):
     game = repo.get_game(game_id)
@@ -33,7 +28,7 @@ def get_game(repo: AbstractRepository, game_id):
     return game_details
 
 def add_comment(game_id: int, comment_text: str, user_name: str, repo: AbstractRepository):
-    # Check that the game exists.
+    # Check that the article exists.
     game = repo.get_game(game_id)
     if game is None:
         raise NonExistentGameException
@@ -42,33 +37,50 @@ def add_comment(game_id: int, comment_text: str, user_name: str, repo: AbstractR
     if user is None:
         raise UnknownUserException
 
-    # Create a Review object with the provided data.
-    review = Review(user, game, rating=0, comment=comment_text)
-
-    # Add the review to the game's comments.
-    game.add_review(review)
+    # Create comment.
+    comment = make_comment(comment_text, user, game)
 
     # Update the repository.
-    repo.add_review(review)
+    repo.add_comment(comment)
 
 
-def get_reviews_for_game(game_id, repo: AbstractRepository):
+def get_comments_for_game(game_id, repo: AbstractRepository):
     game = repo.get_game(game_id)
 
     if game is None:
         raise NonExistentGameException
 
-    return reviews_to_dict(game.comments)
+    return comments_to_dict(game.comments)
 
 
-def review_to_dict_single(review: Review):
-    review_dict = {
-        'user_name': review.user.user_name,
-        'game_id': review.game.game_id,
-        'rating' : review.rating,
-        'comment_text': review.comment
+
+# ============================================
+# Functions to convert model entities to dicts
+# ============================================
+
+def game_to_dict(game: Game):
+        game_dict = {
+        'game_id': game.game_id,
+        'title': game.title,
+        'release_date': game.release_date,
+        'image_url': game.image_url,
+        'price' : game.price,
+        'publisher' : game.publisher,
+        'description' : game.description 
+        }
+        return game_dict
+
+def games_to_dict(games: Iterable[Game]):
+    return [game_to_dict(game) for game in games]
+
+def comment_to_dict(comment: Review):
+    comment_dict = {
+        'username': comment.user.username,
+        'game_id': comment.game.game_id,
+        'comment_text': comment.comment
     }
-    return review_dict
+    return comment_dict
 
-def reviews_to_dict(reviews: Iterable[Review]):
-    return [review_to_dict_single(review) for review in reviews]
+
+def comments_to_dict(comments: Iterable[Review]):
+    return [comment_to_dict(comment) for comment in comments]
