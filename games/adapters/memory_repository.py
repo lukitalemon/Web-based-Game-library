@@ -66,7 +66,7 @@ class MemoryRepository(AbstractRepository):
 
     def add_comment(self, comment: Review):
         # call parent class first, add_comment relies on implementation of code common to all derived classes
-        super().comment(comment)
+        super().add_comment(comment)
         self.__comments.append(comment)
 
     def get_comments(self):

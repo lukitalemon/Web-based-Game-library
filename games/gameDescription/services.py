@@ -38,7 +38,7 @@ def add_comment(game_id: int, comment_text: str, user_name: str, repo: AbstractR
         raise UnknownUserException
 
     # Create comment.
-    comment = make_comment(comment_text, user, game)
+    comment = make_comment(comment_text, user, game, rating=0)
 
     # Update the repository.
     repo.add_comment(comment)
@@ -52,7 +52,17 @@ def get_comments_for_game(game_id, repo: AbstractRepository):
 
     return comments_to_dict(game.comments)
 
+def get_games(repo: AbstractRepository) -> List[dict]:
+    games = repo.get_games()
 
+    if not games:
+        return []
+
+    # Rename the local variable to avoid the name conflict
+    games_as_dict = games_to_dict(games)
+
+    return games_as_dict
+    
 
 # ============================================
 # Functions to convert model entities to dicts

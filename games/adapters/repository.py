@@ -44,9 +44,9 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
         If the Comment doesn't have bidirectional links with an game and a User, this method raises a
         RepositoryException and doesn't update the repository.
         """
-        if comment.user is None or comment not in comment.user.comments:
+        if comment.user is None or comment not in comment.user.reviews:
             raise RepositoryException('Comment not correctly attached to a User')
-        if comment.game is None or comment not in comment.game.comments:
+        if comment.game is None or comment not in comment.game.reviews:
             raise RepositoryException('Comment not correctly attached to an game')
 
     @abc.abstractmethod

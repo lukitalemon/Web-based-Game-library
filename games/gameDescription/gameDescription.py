@@ -33,9 +33,11 @@ def gameDescription(game_id):
     
     game = services.get_game(repo.repo_instance, game_id)
 
+    games = services.get_games(repo.repo_instance)
 
-    game['view_comment_url'] = url_for('gameDescription_bp.gameDescription', game_id=game['game_id'])  # Change view_comments_for to game_id
-    game['add_comment_url'] = url_for('gameDescription_bp.comment_on_game', game=game['game_id'])
+    for game in games:
+        game['view_comment_url'] = url_for('gameDescription_bp.gameDescription', game_id=game['game_id'])  # Change view_comments_for to game_id
+        game['add_comment_url'] = url_for('gameDescription_bp.comment_on_game', game=game['game_id'])
 
     form = CommentForm()
     form.game_id.data = game_id
@@ -44,7 +46,8 @@ def gameDescription(game_id):
     'gameDescription.html',
     game=game_details,
     show_comments_for_game=game_to_show_comments,
-    form=form
+    form=form,
+    games=games
     )
 
 @login_required
@@ -64,11 +67,13 @@ def comment_on_game():
         # Extract the article id, representing the commented article, from the form.
         game_id = int(form.game_id.data)
 
+        print("Received comment:", form.comment.data)
+
         # Use the service layer to store the new comment.
         services.add_comment(game_id, form.comment.data, username, repo.repo_instance)
 
         # Retrieve the article in dict form.
-        game = services.get_game(game_id, repo.repo_instance)
+        game = services.get_game(repo.repo_instance, game_id )
 
         # Cause the web browser to display the page of all articles that have the same date as the commented article,
         # and display all comments, including the new comment.
