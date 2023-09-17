@@ -95,10 +95,10 @@ class PasswordValid:
     def __call__(self, form, field):
         schema = PasswordValidator()
         schema \
-            .min(8) \
-            .has().uppercase() \
-            .has().lowercase() \
-            .has().digits()
+            .min(3) 
+            # .has().uppercase() \
+            # .has().lowercase() \
+            # .has().digits()
         if not schema.validate(field.data):
             raise ValidationError(self.message)
         

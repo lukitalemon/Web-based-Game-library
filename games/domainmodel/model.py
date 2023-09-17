@@ -83,6 +83,7 @@ class Game:
         self.__genres: list = []
         self.__reviews: list = []
         self.__publisher = None
+        
 
     @property
     def publisher(self) -> Publisher:

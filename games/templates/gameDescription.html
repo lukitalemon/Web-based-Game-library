@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Game Description</title>
-    <link
-      rel="stylesheet" href="../static/css/main.css"
-    />
-</head>
-<body>
-  {% include 'navbar.html' %}
+{% extends 'base.html' %}
+
+{% block title %}Game Description{% endblock %}
+
+{% block content %}
             <div class="game-description>
               <main id="main">
                 <section class="hero">
@@ -34,6 +28,6 @@
                 {% set review_form = form %}
                 {% include 'review.html' %}
               </main>
-            </div>
-</body>
-</html>
+            </div>      
+{% endblock %}
+

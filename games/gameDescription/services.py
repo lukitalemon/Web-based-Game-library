@@ -21,13 +21,14 @@ def get_game(repo: AbstractRepository, game_id):
         'image_url': game.image_url,
         'price' : game.price,
         'publisher' : game.publisher,
-        'description' : game.description
+        'description' : game.description,
+        'reviews' : game.reviews
         # Add more attributes as needed
     }
 
     return game_details
 
-def add_comment(game_id: int, comment_text: str, user_name: str, repo: AbstractRepository):
+def add_comment(game_id: int, comment: str, user_name: str, repo: AbstractRepository):
     # Check that the article exists.
     game = repo.get_game(game_id)
     if game is None:
@@ -38,7 +39,7 @@ def add_comment(game_id: int, comment_text: str, user_name: str, repo: AbstractR
         raise UnknownUserException
 
     # Create comment.
-    comment = make_comment(comment_text, user, game, rating=0)
+    comment = make_comment(comment, user, game, rating=0)
 
     # Update the repository.
     repo.add_comment(comment)
@@ -49,8 +50,12 @@ def get_comments_for_game(game_id, repo: AbstractRepository):
 
     if game is None:
         raise NonExistentGameException
+    
+    print("Comments for Game ID:", game_id)
+    for comment in game.reviews:
+        print(comment.comment)
 
-    return comments_to_dict(game.comments)
+    return comments_to_dict(game.reviews)
 
 def get_games(repo: AbstractRepository) -> List[dict]:
     games = repo.get_games()
@@ -87,10 +92,10 @@ def comment_to_dict(comment: Review):
     comment_dict = {
         'username': comment.user.username,
         'game_id': comment.game.game_id,
-        'comment_text': comment.comment
+        'comment': comment.comment
     }
     return comment_dict
 
 
-def comments_to_dict(comments: Iterable[Review]):
-    return [comment_to_dict(comment) for comment in comments]
+def comments_to_dict(reviews: Iterable[Review]):
+    return [comment_to_dict(comment) for comment in reviews]

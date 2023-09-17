@@ -1,5 +1,6 @@
 <div class="form-wrapper">
-    <form action="{{ url_for('gameDescription_bp.comment_on_game') }}" method="post">
+    <form method="POST" action="{{ url_for('gameDescription_bp.comment_on_game') }}">
+
         {{form.game_id}} <!-- Need to include this hidden field as it tracks the article being commented. -->
         {{form.csrf_token}} <!-- Need to include this token - Flask WTForms requires it. -->
         <br>
@@ -18,8 +19,14 @@
 <br>
 <br>
 <br>
-<div style="clear:both">
-    {% for comment in game.reviews %}
-        <p>{{comment.comment_text}}, by {{comment.user_name}}</p>
+<h2>Comments</h2>
+<ul>
+    {% for comment in comments %}
+        <li>
+            <strong>{{ comment.username }}</strong>: {{ comment.comment }}
+        </li>
     {% endfor %}
-</div>
+</ul>
+
+
+

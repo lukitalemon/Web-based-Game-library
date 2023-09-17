@@ -31,7 +31,13 @@ def gameDescription(game_id):
         # Handle the case where the game is not found
         return render_template('game_not_found.html')
     
+    comments = services.get_comments_for_game( game_id,  repo.repo_instance )
+    
     game = services.get_game(repo.repo_instance, game_id)
+
+    print("Comments for Game ID:", game_id)
+    for comment in game['reviews']:
+            print(comment.comment)
 
     games = services.get_games(repo.repo_instance)
 
@@ -47,7 +53,8 @@ def gameDescription(game_id):
     game=game_details,
     show_comments_for_game=game_to_show_comments,
     form=form,
-    games=games
+    games=games,
+    comments = comments
     )
 
 @login_required
@@ -75,9 +82,14 @@ def comment_on_game():
         # Retrieve the article in dict form.
         game = services.get_game(repo.repo_instance, game_id )
 
+        print("Comments after adding a new comment:")
+        for comment in game['reviews']:
+            print(comment.comment)
+
         # Cause the web browser to display the page of all articles that have the same date as the commented article,
         # and display all comments, including the new comment.
-        return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id))
+        return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id, view_comments_for=game_id))
+
 
 
     if request.method == 'GET':
