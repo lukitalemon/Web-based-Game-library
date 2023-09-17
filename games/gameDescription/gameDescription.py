@@ -64,55 +64,38 @@ user_wishlists = {}
 @gameDescription_blueprint.route('/add_to_wishlist/<int:game_id>', methods=['POST'])
 @login_required
 def add_to_wishlist(game_id):
-    # Get the current user
     user = repo.repo_instance.get_user(session['user_name'])
     if user is None:
-        # Handle the case where the user is not found
         return redirect(url_for('authentication_bp.login'))
 
-    # Get the game
     game = repo.repo_instance.get_game(game_id)
     if game is None:
-        # Handle the case where the game is not found
         return redirect(url_for('home_bp.home'))
 
-    # Add the game to the user's wishlist using the Wishlist class method
-    user_wishlist = user_wishlists.get(session['user_name'])
-    if user_wishlist is None:
-        user_wishlist = Wishlist(user)
-        user_wishlists[session['user_name']] = user_wishlist
-    if game not in user_wishlist:
-        user_wishlist.add_game(game)
-    else:
-        flash('Game already in Wishlist')
+    # Add the game to the user's wishlist
+    if not repo.repo_instance.wishlist_exists(user.username):
+        wishlist = Wishlist(user)
+        repo.repo_instance.add_wishlist(user.username, wishlist)
+    repo.repo_instance.add_game_to_wishlist(user.username, game)
 
     return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id))
 
 @gameDescription_blueprint.route('/remove_from_wishlist/<int:game_id>', methods=['POST'])
 @login_required
 def remove_from_wishlist(game_id):
-    # Get the current user
     user = repo.repo_instance.get_user(session['user_name'])
     if user is None:
-        # Handle the case where the user is not found
         return redirect(url_for('authentication_bp.login'))
 
-    # Get the game
     game = repo.repo_instance.get_game(game_id)
     if game is None:
-        # Handle the case where the game is not found
         return redirect(url_for('home_bp.home'))
 
-    # Remove the game from the user's wishlist using the Wishlist class method
-    user_wishlist = user_wishlists.get(session['user_name'])
-    if user_wishlist is not None:
-        if game in user_wishlist:
-            user_wishlist.remove_game(game)
-    else:
-        flash('Game not in Wishlist')
-
+    # Remove the game from the user's wishlist
+    repo.repo_instance.remove_game_from_wishlist(user.username, game)
 
     return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id))
+
 
 
 @login_required

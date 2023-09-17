@@ -6,7 +6,7 @@ from bisect import bisect_left, insort_left
 from datetime import datetime
 
 from games.adapters.repository import AbstractRepository, RepositoryException
-from games.domainmodel.model import Game, Genre, Publisher, User, Review
+from games.domainmodel.model import Game, Genre, Publisher, User, Review, Wishlist
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 
 from werkzeug.security import generate_password_hash
@@ -21,6 +21,7 @@ class MemoryRepository(AbstractRepository):
         self.publishers_dict = dict()
         self.__users = list()
         self.__comments = list()
+        self.__user_wishlists = {}
 
     def add_user(self, user: User):
         self.__users.append(user)
@@ -71,6 +72,25 @@ class MemoryRepository(AbstractRepository):
 
     def get_comments(self):
         return self.__comments
+    
+    def add_wishlist(self, username, wishlist: Wishlist):
+        self.__user_wishlists[username] = wishlist
+
+    def get_wishlist(self, username):
+        return self.__user_wishlists.get(username, None)
+
+    def wishlist_exists(self, username):
+        return username in self.__user_wishlists
+
+    def add_game_to_wishlist(self, username, game):
+        wishlist = self.get_wishlist(username)
+        if wishlist:
+            wishlist.add_game(game)
+
+    def remove_game_from_wishlist(self, username, game):
+        wishlist = self.get_wishlist(username)
+        if wishlist:
+            wishlist.remove_game(game)
 
     
     

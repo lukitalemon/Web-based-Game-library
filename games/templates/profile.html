@@ -26,9 +26,13 @@
             <div class="border">
                 <h2 class="title">Wishlist</h2>
                 <ul>
-                    <li>Game 7</li>
-                    <li> 8</li>
-                    <li>Game </li>
+                    {% if repo.repo_instance.wishlist_exists(session['user_name']) %}
+                        {% for game in repo.repo_instance.get_wishlist(session['user_name']).list_of_games() %}
+                            <li>{{ game.title }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Your wishlist is empty</li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import abc 
 from typing import List
 
-from games.domainmodel.model import Game, User, Review
+from games.domainmodel.model import Game, User, Review, Wishlist
 
 repo_instance = None
 
@@ -54,7 +54,17 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
         """ Returns the Comments stored in the repository. """
         raise NotImplementedError
     
+    def add_wishlist(self, username, wishlist: Wishlist):
+        raise NotImplementedError
 
+    def get_wishlist(self, username):
+        raise NotImplementedError
 
+    def wishlist_exists(self, username):
+        raise NotImplementedError
 
+    def add_game_to_wishlist(self, username, game):
+        raise NotImplementedError
 
+    def remove_game_from_wishlist(self, username, game):
+        raise NotImplementedError
