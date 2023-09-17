@@ -23,6 +23,12 @@
                     <p><i>Release Date:</i> {{ game.release_date }} </p>
                     
                     <p><i></i> {{ game.description }} </p>
+                    <form method="post" action="{{ url_for('gameDescription_bp.add_to_wishlist', game_id=game.game_id) }}">
+                      <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                  </form>
+                  <form method="post" action="{{ url_for('gameDescription_bp.remove_from_wishlist', game_id=game.game_id) }}">
+                      <button type="submit" class="btn btn-danger">Remove from Wishlist</button>
+                  </form>
                   
                 </div>
                 {% set review_form = form %}
