@@ -3,18 +3,22 @@
 {% block title %}Game Description{% endblock %}
 
 {% block content %}
-<main class="main-authentication">
+<main class="main-authentication-profile">
     <div class="profbg">
         <h1 class="title">Welcome {{ session['user_name'] }}</h1>
         <div class="profilecont">
             <div class="border">
                 <h2 class="title">Reviewed</h2>
                 <ul>
-                    <li>Game 1</li>
-                    <li>Game 2</li>
-                    <li>Game 3</li>
+                    {% for comment in user_comments %}
+                        <li>
+                            <strong>{{ comment.game.title }}</strong>: "{{ comment.comment }}"
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
+
+
             <div class="border">
                 <h2 class="title">Rated</h2>
                 <ul>
@@ -23,6 +27,8 @@
                     <li>Game 6</li>
                 </ul>
             </div>
+
+
             <div class="border">
                 <h2 class="title">Wishlist</h2>
                 <ul>
