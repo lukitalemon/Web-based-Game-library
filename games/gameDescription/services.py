@@ -28,7 +28,7 @@ def get_game(repo: AbstractRepository, game_id):
 
     return game_details
 
-def add_comment(game_id: int, comment: str, user_name: str, repo: AbstractRepository):
+def add_comment(game_id: int, comment: str, rating: int, user_name: str, repo: AbstractRepository):
     # Check that the article exists.
     game = repo.get_game(game_id)
     if game is None:
@@ -39,7 +39,7 @@ def add_comment(game_id: int, comment: str, user_name: str, repo: AbstractReposi
         raise UnknownUserException
 
     # Create comment.
-    comment = make_comment(comment, user, game, rating=0)
+    comment = make_comment(comment, user, game, rating)
 
     # Update the repository.
     repo.add_comment(comment)
@@ -54,6 +54,7 @@ def get_comments_for_game(game_id, repo: AbstractRepository):
     print("Comments for Game ID:", game_id)
     for comment in game.reviews:
         print(comment.comment)
+        print(comment.rating)
 
     return comments_to_dict(game.reviews)
 
@@ -64,7 +65,7 @@ def get_games(repo: AbstractRepository) -> List[dict]:
         return []
 
     # Rename the local variable to avoid the name conflict
-    games_as_dict = games_to_dict(games)
+    games_as_dict = games_to_dict(games)    
 
     return games_as_dict
     
@@ -92,7 +93,8 @@ def comment_to_dict(comment: Review):
     comment_dict = {
         'username': comment.user.username,
         'game_id': comment.game.game_id,
-        'comment': comment.comment
+        'comment': comment.comment,
+        'rating' : comment.rating
     }
     return comment_dict
 

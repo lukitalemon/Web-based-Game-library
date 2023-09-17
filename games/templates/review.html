@@ -15,6 +15,17 @@
                 </ul>
             {% endif %}
         </div>
+        <div class="form-field">
+            {{ form.rating.label }} <br>
+            {{ form.rating(size=100, placeholder="Enter your rating", class="textarea")}}
+            {% if form.rating.errors %}
+                <ul class="errors">
+                    {% for error in form.rating.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
         <div class="comment-submit">
         {{ form.submit }}
         </div>
@@ -32,6 +43,9 @@
             </div>
             <div class="comment-body">
                 {{ comment.comment }}
+            </div>
+            <div class="comment-rating">
+                Rating: {{ comment.rating }}
             </div>
         </li>
     {% endfor %}

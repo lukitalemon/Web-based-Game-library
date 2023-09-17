@@ -6,8 +6,8 @@ from games.gameDescription import services
 from games.adapters import repository as repo
 
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, HiddenField, SubmitField
-from wtforms.validators import DataRequired, Length, ValidationError
+from wtforms import TextAreaField, HiddenField, SubmitField, IntegerField
+from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
 from better_profanity import profanity
 import games.gameDescription.services as services
 
@@ -114,11 +114,13 @@ def comment_on_game():
         # Successful POST, i.e. the comment text has passed data validation.
         # Extract the article id, representing the commented article, from the form.
         game_id = int(form.game_id.data)
+        rating = int(form.rating.data)
 
         print("Received comment:", form.comment.data)
+        print("Received rating:", rating)
 
         # Use the service layer to store the new comment.
-        services.add_comment(game_id, form.comment.data, username, repo.repo_instance)
+        services.add_comment(game_id, form.comment.data, rating, username, repo.repo_instance)
 
         # Retrieve the article in dict form.
         game = services.get_game(repo.repo_instance, game_id )
@@ -126,6 +128,7 @@ def comment_on_game():
         print("Comments after adding a new comment:")
         for comment in game['reviews']:
             print(comment.comment)
+            print("Rating:", comment.rating)
 
         # Cause the web browser to display the page of all articles that have the same date as the commented article,
         # and display all comments, including the new comment.
@@ -172,6 +175,9 @@ class CommentForm(FlaskForm):
         DataRequired(),
         Length(min=4, message='Your comment is too short'),
         ProfanityFree(message='Your comment must not contain profanity')])
+    rating = IntegerField('Rating', [
+        DataRequired(),
+        NumberRange(min=0, max=5, message="Rating must be between 0 and 5")])
     game_id = HiddenField("Game id")
     submit = SubmitField('Submit')
 
