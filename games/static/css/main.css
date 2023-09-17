@@ -545,6 +545,25 @@ input[type="password"] {
 .comment + .comment {
     margin-top: 10px;
 }
+.profilecont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.border {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 40px;
+  margin: 40px;
+}
+
+.profbg {
+  background-color: #343434;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 2050px;
+}
 
 
 ul {
