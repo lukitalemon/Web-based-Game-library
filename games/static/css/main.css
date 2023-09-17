@@ -454,7 +454,7 @@ input[type="password"] {
 }
 
 /* Style the submit button */
-input[type="submit"] {
+.auth-submit input[type="submit"] {
   background-color: #646464;
   color: #fff;
   border: none;
@@ -465,35 +465,93 @@ input[type="submit"] {
   width: 100%;
 }
 
-input[type="submit"]:hover {
+.auth-submit input[type="submit"]:hover {
   background-color: #b9b8b8;
 }
 
-/* Style the comment box */
-.comment-box {
-  margin-top: 20px; /* Add some space above the comment box */
+
+/* Style the form wrapper */
+.form-wrapper {
+  background-color: rgb(57, 57, 57);
+  padding: 20px;
+  margin-bottom: 20px;
+  align-items: left;
 }
 
-.comment-box form {
-  margin-bottom: 20px; /* Add space below the comment form */
+/* Style the form */
+.dark-form {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.comment-box .form-field {
-  margin-bottom: 10px; /* Add space between the comment input and errors */
+/* Style the form field */
+.form-field {
+  margin-bottom: 20px;
 }
 
-.comment-box .errors {
-  color: red; /* Style error messages in red */
-  list-style-type: none; /* Remove bullet points from error list */
-}
-
-.comment-box p {
-  margin-bottom: 5px; /* Add space between comments */
+/* Style the comment textarea */
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  resize: none;
+  background-color:#8a8a8a;
   color: white;
 }
 
+/* Style the error messages */
+.errors {
+  color: red;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the submit button */
+.comment-submit input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 12px 12px; /* Adjust the padding to make it smaller */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px; /* Adjust the font size to make it smaller */
+}
+
+/* Style the Comments heading */
+.dark-heading {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+/* Style the individual comments */
+.comment {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-top: 1px solid #ccc; /* Add a line above the comment */
+    border-bottom: 1px solid #ccc; /* Add a line below the comment */
+    color: rgb(214, 213, 213);
+}
+
+.comment .comment-header {
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px; /* Add some space below the name */
+}
+
+/* Add some spacing between comments */
+.comment + .comment {
+    margin-top: 10px;
+}
 
 
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
 
 
