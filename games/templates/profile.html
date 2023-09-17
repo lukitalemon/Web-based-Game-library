@@ -3,5 +3,35 @@
 {% block title %}Game Description{% endblock %}
 
 {% block content %}
-<h1>PROFILE THIS IS YOU GANG GANG PROFILE BOYYY</h1>
+<main class="main-authentication">
+    <div class="profbg">
+        <h1 class="title">Welcome {{ session['user_name'] }}</h1>
+        <div class="profilecont">
+            <div class="border">
+                <h2 class="title">Reviewed</h2>
+                <ul>
+                    <li>Game 1</li>
+                    <li>Game 2</li>
+                    <li>Game 3</li>
+                </ul>
+            </div>
+            <div class="border">
+                <h2 class="title">Rated</h2>
+                <ul>
+                    <li>Game 4</li>
+                    <li>Game 5</li>
+                    <li>Game 6</li>
+                </ul>
+            </div>
+            <div class="border">
+                <h2 class="title">Wishlist</h2>
+                <ul>
+                    <li>Game 7</li>
+                    <li> 8</li>
+                    <li>Game </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}
