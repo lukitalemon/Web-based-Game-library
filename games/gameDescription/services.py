@@ -101,3 +101,10 @@ def comment_to_dict(comment: Review):
 
 def comments_to_dict(reviews: Iterable[Review]):
     return [comment_to_dict(comment) for comment in reviews]
+
+def average_rating(reviews):
+    if not reviews:
+        return "No Current Ratings"
+    total = sum(review['rating'] for review in reviews)
+    average = total / len(reviews)
+    return average

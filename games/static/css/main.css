@@ -145,6 +145,15 @@ body {
   color: white;
 }
 
+.game-average{
+  font-size: 17px;
+  position: absolute;
+  top: 43%;
+  left: 55%; /* Adjust the left distance */
+  transform: translateY(-50%);
+  color: white;
+}
+
 .price {
   font-size: 20px;
   position: absolute;
