@@ -22,9 +22,11 @@
             <div class="border">
                 <h2 class="title">Rated</h2>
                 <ul>
-                    <li>Game 4</li>
-                    <li>Game 5</li>
-                    <li>Game 6</li>
+                    {% for comment in user_comments %}
+                        <li>
+                            <strong>{{ comment.game.title }}</strong>: {{ comment.rating }} / 5
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
 
