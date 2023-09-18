@@ -48,6 +48,8 @@ def gameDescription(game_id):
 
     form = CommentForm()
     form.game_id.data = game_id
+    average_rating = services.average_rating(comments)
+
 
     return render_template(
     'gameDescription.html',
@@ -55,7 +57,8 @@ def gameDescription(game_id):
     show_comments_for_game=game_to_show_comments,
     form=form,
     games=games,
-    comments = comments
+    comments = comments,
+    average_rating = average_rating
     )
 
 
