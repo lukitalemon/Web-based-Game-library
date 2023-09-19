@@ -262,8 +262,8 @@ font-size: 350%;
 .browse-page {
   background-color: rgb(30, 27, 27);
   padding:0;
-  margin:0;
-  height:100%;
+  margin-top: -26px;
+  height: 1900px;
 }
 
 /* Adjust the sidebar */
@@ -483,7 +483,6 @@ input[type="password"] {
 .form-wrapper {
   background-color: rgb(57, 57, 57);
   padding: 20px;
-  margin-bottom: 20px;
   align-items: left;
 }
 
@@ -645,4 +644,32 @@ ul {
     border-radius: 5px;
 }
 
+
+form[action*="add_to_wishlist"] button.btn-primary {
+  background-color: #007bff; /* Change to your desired background color */
+  color: #fff; /* Change to your desired text color */
+  border: none; /* Remove button border if desired */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 5px; /* Add rounded corners if desired */
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+form[action*="add_to_wishlist"] button.btn-primary:hover {
+  background-color: #0056b3; /* Change to your desired hover background color */
+}
+
+/* Style the "Remove from Wishlist" button */
+form[action*="remove_from_wishlist"] button.btn-danger {
+  background-color: #dc3545; /* Change to your desired background color */
+  color: #fff; /* Change to your desired text color */
+  border: none; /* Remove button border if desired */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 5px; /* Add rounded corners if desired */
+  margin-left: 20px;
+}
+
+form[action*="remove_from_wishlist"] button.btn-danger:hover {
+  background-color: #c82333; /* Change to your desired hover background color */
+}
 

@@ -17,7 +17,7 @@
         </div>
         <div class="form-field">
             {{ form.rating.label }} <br>
-            {{ form.rating(size=100, placeholder="Enter your rating", class="textarea")}}
+            {{ form.rating(size=100, placeholder="Enter your rating (1-5)", class="textarea")}}
             {% if form.rating.errors %}
                 <ul class="errors">
                     {% for error in form.rating.errors %}
