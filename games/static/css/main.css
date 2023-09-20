@@ -84,6 +84,7 @@ body {
 .hero {
   position: relative;
   height: 500px; /* Adjust this height as needed */
+  margin-bottom: 20px;
 }
 
 .blurred-image {
@@ -143,21 +144,22 @@ body {
   left: 40%; /* Adjust the left distance */
   transform: translateY(-50%);
   color: white;
+  font-size: 18px;
 }
 
 .game-average{
   font-size: 17px;
   position: absolute;
-  top: 43%;
-  left: 55%; /* Adjust the left distance */
+  top: 50%;
+  left: 40%; /* Adjust the left distance */
   transform: translateY(-50%);
-  color: white;
+  color: rgb(187, 255, 109);
 }
 
 .price {
   font-size: 20px;
   position: absolute;
-  top: 50%;
+  top: 57%;
   left: 40%;
   display: inline-block;
   padding: 10px 20px;
@@ -248,6 +250,7 @@ font-size: 350%;
   position: relative;
   width: 45%;
   height: 20vh;
+  margin-top: 35vh;
 }
 
 .home-paragraph{
@@ -255,8 +258,8 @@ font-size: 350%;
   color: white;
   text-align: center;
   text-align: center;
-  margin-top: 35vh;
   margin-left: 90px;
+  top: 0px;
 }
 
 .browse-page {
