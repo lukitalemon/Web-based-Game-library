@@ -7,6 +7,7 @@ from games.gameDescription.services import NonExistentGameException, UnknownUser
 from games.browse import services as browse_services
 from games.authentication import services as authentication_services
 from games.authentication.services import NameNotUniqueException, UnknownUserException, AuthenticationException
+from games.profile import services as profile_services
 from games.adapters import repository as repo
 from games.adapters.memory_repository import MemoryRepository
 
@@ -448,4 +449,30 @@ def test_user_to_dict(in_memory_repo):
     user_as_dict = authentication_services.user_to_dict(user1)
 
     assert user_as_dict['user_name'] == expected['user_name']
+
+def test_get_comments_by_user(in_memory_repo):
+    username1 = "asianhard123"
+    username2 = 'lukevitas123'
+    password1 = "ET1234567"
+    password2 = "LV1234567"
+
+    user1 = User("asianhard123", "ET1234567")
+    user2 = User("lukevitas123", "LV1234567")
+
+    authentication_services.add_user(username1, password1, in_memory_repo)
+    authentication_services.add_user(username2, password2, in_memory_repo)
+
+    game1 = Game(1, "Soccer Game 1")
+    in_memory_repo.add_game(game1)
+
+    gameDescription_services.add_comment(1, "Wow amazing red bull campus clutch", 4, "asianhard123", in_memory_repo)
+    gameDescription_services.add_comment(1, "Such a fun game to play", 4, "lukevitas123", in_memory_repo)
+
+    comment_user = profile_services.get_comments_by_user(username1, in_memory_repo)
+    expected = ["Wow amazing red bull campus clutch"]
+    comment = [comment.comment for comment in comment_user]
+
+    assert comment == expected
+
+
 
