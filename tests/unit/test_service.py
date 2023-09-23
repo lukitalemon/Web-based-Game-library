@@ -6,6 +6,7 @@ from games.gameDescription import services as gameDescription_services
 from games.gameDescription.services import NonExistentGameException, UnknownUserException
 from games.browse import services as browse_services
 from games.authentication import services as authentication_services
+from games.authentication.services import NameNotUniqueException, UnknownUserException, AuthenticationException
 from games.adapters import repository as repo
 from games.adapters.memory_repository import MemoryRepository
 
@@ -152,7 +153,7 @@ def test_add_comment(in_memory_repo):
     comment = gameDescription_services.get_comments_for_game(1, in_memory_repo)
 
     assert comment[0] == {'username': 'asianhard123', 'game_id': 1, 'comment': 'This is a really good game', 'rating': 3}
-# STILL HAVE TO FIX THIS ONE ON TOP
+
 def test_add_comment_with_no_game(in_memory_repo):
     comment = "This is a really good game"
     rating = 3
@@ -376,10 +377,75 @@ def test_average_rating_it_no_reviews(in_memory_repo):
     assert review_dict == "No Current Ratings"
 
 
+def test_add_user(in_memory_repo):
+    username = "asianhard123"
+    password = "ET1234567"
+    authentication_services.add_user(username, password, in_memory_repo)
+
+    user_as_dict = authentication_services.get_user(username, in_memory_repo)
+
+    assert user_as_dict['user_name'] == username
+
+    # Check that password has been encrypted.
+    assert user_as_dict['password'].startswith('pbkdf2:sha256:')
+
+def test_cannot_add_user_with_existing_name(in_memory_repo):
+    username1 = 'asianhard123'
+    password1 = 'ET1234567'
+
+    username2 = "asianhard123"
+    password2 = "ET1234567"
+
+    authentication_services.add_user(username1, password1, in_memory_repo)
+
+    with pytest.raises(authentication_services.NameNotUniqueException):
+        authentication_services.add_user(username2, password2, in_memory_repo)
+
+def test_authentication_with_valid_credentials(in_memory_repo):
+    new_user_name = 'pmccartney'
+    new_password = 'abcd1A23'
+
+    authentication_services.add_user(new_user_name, new_password, in_memory_repo)
+
+    try:
+        authentication_services.authenticate_user(new_user_name, new_password, in_memory_repo)
+    except AuthenticationException:
+        assert False
+
+def test_authentication_with_invalid_credentials(in_memory_repo):
+    new_user_name = 'pmccartney'
+    new_password = 'abcd1A23'
+
+    authentication_services.add_user(new_user_name, new_password, in_memory_repo)
+
+    with pytest.raises(authentication_services.AuthenticationException):
+        authentication_services.authenticate_user(new_user_name, '0987654321', in_memory_repo)
+
+def test_get_user(in_memory_repo):
+    username = "asianhard123"
+    password = "ET1234567"
+    user1 = User("asianhard123", "ET1234567")
+    authentication_services.add_user(username, password, in_memory_repo)
+    expected = authentication_services.get_user(username, in_memory_repo)
+    user_as_dict = authentication_services.user_to_dict(user1)
 
 
+    assert user_as_dict['user_name'] == expected['user_name']
 
+def test_get_user_when_no_user(in_memory_repo):
+    with pytest.raises(authentication_services.UnknownUserException):
+        authentication_services.get_user("asianhard123", in_memory_repo)
 
+def test_user_to_dict(in_memory_repo):
+    username = "asianhard123"
+    password = "ET1234567"
+    user1 = User("asianhard123", "ET1234567")
+    authentication_services.add_user(username, password, in_memory_repo)
+    expected = {
+        'user_name': "asianhard123",
+        'password': "ET1234567"
+    }
+    user_as_dict = authentication_services.user_to_dict(user1)
 
-
+    assert user_as_dict['user_name'] == expected['user_name']
 
