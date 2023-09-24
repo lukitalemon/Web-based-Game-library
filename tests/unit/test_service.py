@@ -109,6 +109,10 @@ def test_get_all_genres_if_empty(in_memory_repo):
     genres = browse_services.get_all_genres(in_memory_repo)
     assert genres == []
 
+#============================================================
+#Test cases for gameDescription services
+#============================================================
+
 def test_get_game(in_memory_repo):
     game1 = Game(1, "Soccer Game 1")
     game2 = Game(2, "Racing Game")
@@ -364,6 +368,7 @@ def test_average_rating(in_memory_repo):
     review2 = Review(user2, game2, 3, "Good campus clutch finals")
     review3 = Review(user3, game3, 2, "Was a bad day for me and my team")
 
+    #creating a list with reviews to be use as the input for comments_to_dict
     review_list = [review1, review2, review3]
     review_dict = gameDescription_services.comments_to_dict(review_list)
 
@@ -371,12 +376,15 @@ def test_average_rating(in_memory_repo):
 
     assert average == 3
 
-def test_average_rating_it_no_reviews(in_memory_repo):
+def test_average_rating_if_no_reviews(in_memory_repo):
     review_list = []
     review_dict = gameDescription_services.average_rating(review_list)
 
     assert review_dict == "No Current Ratings"
 
+#============================================================
+#Test cases for authentication services
+#============================================================
 
 def test_add_user(in_memory_repo):
     username = "asianhard123"
@@ -399,6 +407,7 @@ def test_cannot_add_user_with_existing_name(in_memory_repo):
 
     authentication_services.add_user(username1, password1, in_memory_repo)
 
+    #call the authentication service layer to attempt to add a user with allready existing username
     with pytest.raises(authentication_services.NameNotUniqueException):
         authentication_services.add_user(username2, password2, in_memory_repo)
 
@@ -427,6 +436,7 @@ def test_get_user(in_memory_repo):
     password = "ET1234567"
     user1 = User("asianhard123", "ET1234567")
     authentication_services.add_user(username, password, in_memory_repo)
+
     expected = authentication_services.get_user(username, in_memory_repo)
     user_as_dict = authentication_services.user_to_dict(user1)
 
@@ -434,6 +444,7 @@ def test_get_user(in_memory_repo):
     assert user_as_dict['user_name'] == expected['user_name']
 
 def test_get_user_when_no_user(in_memory_repo):
+    #Call the authentication service layer to attemt to get a username that does not exist
     with pytest.raises(authentication_services.UnknownUserException):
         authentication_services.get_user("asianhard123", in_memory_repo)
 
@@ -449,6 +460,10 @@ def test_user_to_dict(in_memory_repo):
     user_as_dict = authentication_services.user_to_dict(user1)
 
     assert user_as_dict['user_name'] == expected['user_name']
+
+#============================================================
+#Test cases for profile services
+#============================================================
 
 def test_get_comments_by_user(in_memory_repo):
     username1 = "asianhard123"
