@@ -181,7 +181,7 @@ class CommentForm(FlaskForm):
         ProfanityFree(message='Your comment must not contain profanity')])
     rating = IntegerField('Rating', [
         DataRequired(),
-        NumberRange(min=0, max=5, message="Rating must be between 1 and 5")])
+        NumberRange(min=1, max=5, message="Rating must be between 1 and 5")])
     game_id = HiddenField("Game id")
     submit = SubmitField('Submit')
 
