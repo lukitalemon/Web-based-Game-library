@@ -107,4 +107,4 @@ def average_rating(reviews):
         return "No Current Ratings"
     total = sum(review['rating'] for review in reviews)
     average = total / len(reviews)
-    return average
+    return round(average,2)
