@@ -106,6 +106,7 @@ def remove_from_wishlist(game_id):
 def comment_on_game():
     # Obtain the user name of the currently logged in user.
     username = session['user_name']
+
     
 
     # Create form. The form maintains state, e.g. when this method is called with a HTTP GET request and populates
