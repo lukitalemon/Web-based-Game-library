@@ -31,7 +31,6 @@ def browse():
     # Get the subset of games for the current page
     games_on_page = all_games[start_index:start_index + max_games_per_page]
 
-
     return render_template(
         'browse.html',
         title='Browse Games | CS235 Game Library',
@@ -41,10 +40,11 @@ def browse():
         current_page=page,
         num_pages=num_pages,
         max_games_per_page=max_games_per_page,
-        all_genres = all_genres,
-        genre = genre,
-        selected_genre = genre
+        all_genres=all_genres,
+        genre=genre,
+        selected_genre=genre
     )
+
 
 @browse_blueprint.route('/search', methods=['GET', 'POST'])
 def search():

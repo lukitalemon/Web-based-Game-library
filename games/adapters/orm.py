@@ -51,6 +51,7 @@ reviews_table = Table(
     Column('user_id', ForeignKey('users.user_id')),
 )
 
+
 def map_model_to_tables():
     mapper(Publisher, publishers_table, properties={
         '_Publisher__publisher_name': publishers_table.c.name,

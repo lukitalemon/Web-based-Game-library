@@ -13,9 +13,8 @@ import games.gameDescription.services as services
 
 from games.authentication.authentication import login_required
 
-
-
 gameDescription_blueprint = Blueprint('gameDescription_bp', __name__)
+
 
 @gameDescription_blueprint.route('/GameDescription/<int:game_id>', methods=['GET', 'POST'])
 def gameDescription(game_id):
@@ -31,34 +30,34 @@ def gameDescription(game_id):
     if game_details is None:
         # Handle the case where the game is not found
         return render_template('game_not_found.html')
-    
-    comments = services.get_comments_for_game( game_id,  repo.repo_instance )
-    
+
+    comments = services.get_comments_for_game(game_id, repo.repo_instance)
+
     game = services.get_game(repo.repo_instance, game_id)
 
     print("Comments for Game ID:", game_id)
     for comment in game['reviews']:
-            print(comment.comment)
+        print(comment.comment)
 
     games = services.get_games(repo.repo_instance)
 
     for game in games:
-        game['view_comment_url'] = url_for('gameDescription_bp.gameDescription', game_id=game['game_id'])  # Change view_comments_for to game_id
+        game['view_comment_url'] = url_for('gameDescription_bp.gameDescription',
+                                           game_id=game['game_id'])  # Change view_comments_for to game_id
         game['add_comment_url'] = url_for('gameDescription_bp.comment_on_game', game=game['game_id'])
 
     form = CommentForm()
     form.game_id.data = game_id
     average_rating = services.average_rating(comments)
 
-
     return render_template(
-    'gameDescription.html',
-    game=game_details,
-    show_comments_for_game=game_to_show_comments,
-    form=form,
-    games=games,
-    comments = comments,
-    average_rating = average_rating
+        'gameDescription.html',
+        game=game_details,
+        show_comments_for_game=game_to_show_comments,
+        form=form,
+        games=games,
+        comments=comments,
+        average_rating=average_rating
     )
 
 
@@ -83,6 +82,7 @@ def add_to_wishlist(game_id):
 
     return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id))
 
+
 @gameDescription_blueprint.route('/remove_from_wishlist/<int:game_id>', methods=['POST'])
 @login_required
 def remove_from_wishlist(game_id):
@@ -100,14 +100,11 @@ def remove_from_wishlist(game_id):
     return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id))
 
 
-
 @login_required
 @gameDescription_blueprint.route('/comment', methods=['GET', 'POST'])
 def comment_on_game():
     # Obtain the user name of the currently logged in user.
     username = session['user_name']
-
-    
 
     # Create form. The form maintains state, e.g. when this method is called with a HTTP GET request and populates
     # the form with an article id, when subsequently called with a HTTP POST request, the article id remains in the
@@ -127,7 +124,7 @@ def comment_on_game():
         services.add_comment(game_id, form.comment.data, rating, username, repo.repo_instance)
 
         # Retrieve the article in dict form.
-        game = services.get_game(repo.repo_instance, game_id )
+        game = services.get_game(repo.repo_instance, game_id)
 
         print("Comments after adding a new comment:")
         for comment in game['reviews']:
@@ -137,8 +134,6 @@ def comment_on_game():
         # Cause the web browser to display the page of all articles that have the same date as the commented article,
         # and display all comments, including the new comment.
         return redirect(url_for('gameDescription_bp.gameDescription', game_id=game_id, view_comments_for=game_id))
-
-
 
     if request.method == 'GET':
         # Request is a HTTP GET to display the form.
@@ -174,6 +169,7 @@ class ProfanityFree:
         if profanity.contains_profanity(field.data):
             raise ValidationError(self.message)
 
+
 class CommentForm(FlaskForm):
     comment = TextAreaField('Comment', [
         DataRequired(),
@@ -184,4 +180,3 @@ class CommentForm(FlaskForm):
         NumberRange(min=1, max=5, message="Rating must be between 1 and 5")])
     game_id = HiddenField("Game id")
     submit = SubmitField('Submit')
-

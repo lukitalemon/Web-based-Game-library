@@ -1,16 +1,17 @@
-import abc 
+import abc
 from typing import List
 
-from games.domainmodel.model import Game, User, Review, Wishlist
+from games.domainmodel.model import Game, User, Review, Wishlist, Publisher, Genre
 
 repo_instance = None
+
 
 class RepositoryException(Exception):
     def __init__(self, message=None):
         print(f'RepositoryException: {message}')
 
 
-class AbstractRepository(abc.ABC):  # Change from Abstractrepository to AbstractRepository
+class AbstractRepository(abc.ABC):  # Change from Abstract-repository to AbstractRepository
     @abc.abstractmethod
     def add_user(self, user: User):
         """" Adds a User to the repository. """
@@ -31,11 +32,25 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
     @abc.abstractmethod
     def get_games(self):
         raise NotImplementedError
-    
+
     @abc.abstractmethod
-    def get_game(self, game_id : int):
+    def get_game(self, game_id: int):
         raise NotImplementedError
-    
+
+    @abc.abstractmethod
+    def add_multiple_publishers(self, publisher: List[Publisher]):
+        """ Add multiple games to the repository of games. """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_games(self, games: List[Game]):
+        """ Add multiple games to the repository of games. """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_genres(self, genres: List[Genre]):
+        """ Add many genres to the repository. """
+        raise NotImplementedError
 
     @abc.abstractmethod
     def add_comment(self, comment: Review):
@@ -53,7 +68,7 @@ class AbstractRepository(abc.ABC):  # Change from Abstractrepository to Abstract
     def get_comments(self):
         """ Returns the Comments stored in the repository. """
         raise NotImplementedError
-    
+
     def add_wishlist(self, username, wishlist: Wishlist):
         raise NotImplementedError
 

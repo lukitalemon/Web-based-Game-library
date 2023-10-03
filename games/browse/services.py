@@ -3,7 +3,6 @@ from games.domainmodel.model import Game, Publisher
 from flask import  request
 
 
-
 def get_games(repo: AbstractRepository, sorting_key=None):
     games = repo.get_games()
 
@@ -31,6 +30,7 @@ def get_num_games(repo: AbstractRepository):
         number_of_games += 1
     return number_of_games
 
+
 def get_games_by_genre(repo: AbstractRepository, genre_name: str, sorting_key=None):
     games_in_genre = [game for game in repo.get_games() if any(genre_name.lower() == genre.genre_name.lower() for genre in game.genres)]
     if sorting_key:
@@ -56,6 +56,7 @@ def get_all_genres(repo: AbstractRepository):
 
     return sorted(all_genres)
 
+
 def search_games(repo: AbstractRepository, query: str):
     results = []
     all_games = get_games(repo, sorting_key=lambda game:game.title)
@@ -67,12 +68,12 @@ def search_games(repo: AbstractRepository, query: str):
             if (query in game['title'].lower()) or (query in game['publisher'].lower()) or (any(query in genre.lower() for genre in game['genres'])):
                 results.append(game)
         elif type == 'title':
-            if (query in game['title'].lower()):
+            if query in game['title'].lower():
                 results.append(game)
         elif type == 'publisher':
-            if (query in game['publisher'].lower()):
+            if query in game['publisher'].lower():
                 results.append(game)
         elif type == 'genre':
-            if (any(query in genre.lower() for genre in game['genres'])):
+            if any(query in genre.lower() for genre in game['genres']):
                 results.append(game)
     return results
