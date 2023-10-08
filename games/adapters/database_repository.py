@@ -86,7 +86,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # region Publisher data
     def get_publishers(self) -> List[Publisher]:
-        pass
+        publishers = self._session_cm.session.query(Publisher).all()
+        return publishers
 
     def add_publisher(self, publisher: Publisher):
         with self._session_cm as scm:
@@ -100,13 +101,15 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.commit()
 
     def get_number_of_publishers(self) -> int:
-        pass
+        total_publishers = self._session_cm.session.query(Publisher).count()
+        return total_publishers
 
     # endregion
 
     # region Genre_data
     def get_genres(self) -> List[Genre]:
-        pass
+        genres = self._session_cm.session.query(Genre).all()
+        return genres
 
     def add_genre(self, genre: Genre):
         with self._session_cm as scm:
@@ -122,4 +125,33 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     # endregion
 
     def search_games_by_title(self, title_string: str) -> List[Game]:
+<<<<<<< Updated upstream
         pass
+=======
+        games = self._session_cm.session.query(Game).filter(Game._Game__game_title.ilike(f"%{title_string}%")).all()
+        return games
+    
+    def add_comment(self, comment: Review):
+        with self._session_cm as scm:
+            scm.session.merge(comment)
+            scm.commit()
+    
+    def add_user(self, user: User):
+        with self._session_cm as scm:
+            scm.session.merge(user)
+            scm.commit()
+    
+    def get_comments(self) -> List[Review]:
+        comments = self._session_cm.session.query(Review).all()
+        return comments
+    
+    def get_user(self, user_name) -> User:
+        user = None
+        try:
+            user = self._session_cm.session.query(
+                Game).filter(User.username == user_name).first()
+        except NoResultFound:
+            print(f'User {user_name} was not found')
+
+        return user
+>>>>>>> Stashed changes

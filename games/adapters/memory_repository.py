@@ -92,6 +92,19 @@ class MemoryRepository(AbstractRepository):
         if wishlist:
             wishlist.remove_game(game)
 
+    def add_multiple_games(self, games: List[Game]):
+        for game in games:
+            self.add_game(game)
+    
+    def add_multiple_genres(self, genres: List[Genre]):
+        for genre in genres:
+            self.add_genre(genre)
+    
+    def add_multiple_publishers(self, publishers: List[Publisher]):
+        for publisher in publishers:
+            self.add_publisher(publisher)
+
+
     
     
     
