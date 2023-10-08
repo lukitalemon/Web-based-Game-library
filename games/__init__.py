@@ -24,7 +24,7 @@ def create_app():
     # Create the Flask app object.
     app = Flask(__name__)
 
-    database_uri = 'sqlite:///games.db'
+    database_uri = 'sqlite:///games.db?check_same_thread=False'
     app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
     app.config['SQLALCHEMY_ECHO'] = True  # echo SQL statements - useful for debugging
 

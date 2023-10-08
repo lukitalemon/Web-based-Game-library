@@ -1,10 +1,10 @@
-from games.adapters.repository import AbstractRepository
+from games.adapters import database_repository as repo
 from games.domainmodel.model import Game, Publisher
 from flask import  request
 
 
-def get_games(repo: AbstractRepository, sorting_key=None):
-    games = repo.get_games()
+def get_games(repo_instance, sorting_key=None):
+    games = repo_instance.get_games()
 
     if sorting_key:
         games = sorted(games, key=sorting_key)
@@ -23,16 +23,17 @@ def get_games(repo: AbstractRepository, sorting_key=None):
     return game_dicts
 
 
-def get_num_games(repo: AbstractRepository):
-    games = repo.get_games()
+
+def get_num_games(repo_instance):
+    games = repo_instance.get_games()
     number_of_games = 0
     for game in games:
         number_of_games += 1
     return number_of_games
 
 
-def get_games_by_genre(repo: AbstractRepository, genre_name: str, sorting_key=None):
-    games_in_genre = [game for game in repo.get_games() if any(genre_name.lower() == genre.genre_name.lower() for genre in game.genres)]
+def get_games_by_genre(repo_instance, genre_name: str, sorting_key=None):
+    games_in_genre = [game for game in repo_instance.get_games() if any(genre_name.lower() == genre.genre_name.lower() for genre in game.genres)]
     if sorting_key:
         games_in_genre = sorted(games_in_genre, key=sorting_key)
     game_dicts = []
@@ -48,18 +49,22 @@ def get_games_by_genre(repo: AbstractRepository, genre_name: str, sorting_key=No
     return game_dicts
 
 
-def get_all_genres(repo: AbstractRepository):
-    all_genres = set()
+# def get_all_genres(repo: repo.SqlAlchemyRepository):
+#     all_genres = set()
 
-    for game in repo.get_games():
-        all_genres.update(genre.genre_name for genre in game.genres)
+#     for game in repo.get_games():
+#         all_genres.update(genre.genre_name for genre in game.genres)
 
-    return sorted(all_genres)
+#     return sorted(all_genres)
 
 
-def search_games(repo: AbstractRepository, query: str):
+def get_genres(repo_instance):
+    return repo_instance.get_genres()
+
+
+def search_games(repo_instance, query: str):
     results = []
-    all_games = get_games(repo, sorting_key=lambda game:game.title)
+    all_games = get_games(repo_instance, sorting_key=lambda game:game.title)
     query = query.lower()
     type = request.args.get('type')
 

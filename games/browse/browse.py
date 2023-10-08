@@ -1,29 +1,32 @@
 from flask import Blueprint, url_for, render_template, request, redirect
 from games.browse import services
-from games.adapters import repository as repo
+from games.adapters import database_repository as repo
 
 
 browse_blueprint = Blueprint('browse_bp', __name__)
 
 @browse_blueprint.route('/browse', methods=['GET'])
 def browse():
+
+    repository = repo.SqlAlchemyRepository(repo.session_factory)
+
     starting_page = 1
     max_games_per_page = 40  # Adjust this value as needed
     genre = request.args.get('genre')
 
     page = int(request.args.get('page', starting_page))  # Default to starting_page if not provided
 
-    all_genres = services.get_all_genres(repo.repo_instance)
+    all_genres = services.get_genres(repository)
 
     # Calculate the starting index of games for the current page
     start_index = (page - 1) * max_games_per_page
 
     if genre:
-        all_games = services.get_games_by_genre(repo.repo_instance, genre, sorting_key=lambda game: game.title)
+        all_games = services.get_games_by_genre(repository,genre, sorting_key=lambda game: game.title)
         num_games = len(all_games)
     else:
-        all_games = services.get_games(repo.repo_instance, sorting_key=lambda game: game.title)
-        num_games = services.get_num_games(repo.repo_instance)
+        all_games = services.get_games(repository,sorting_key=lambda game: game.title)
+        num_games = services.get_num_games(repository)
 
 
     num_pages = (num_games + max_games_per_page - 1) // max_games_per_page
@@ -48,15 +51,18 @@ def browse():
 
 @browse_blueprint.route('/search', methods=['GET', 'POST'])
 def search():
+
+    repository = repo.SqlAlchemyRepository(repo.session_factory)
+
     query = request.args.get('search_query')
     results = []
     
     if query:
         starting_page=1
         max_games_per_page = 40
-        results = services.search_games(repo.repo_instance, query)
+        results = services.search_games(repository, query)
         page = int(request.args.get('page', starting_page))
-        all_genres = services.get_all_genres(repo.repo_instance)
+        all_genres = services.get_all_genres(repository)
         start_index = (page - 1) * max_games_per_page
         num_games=len(results)
         num_pages = (num_games + max_games_per_page - 1) // max_games_per_page

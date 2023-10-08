@@ -1,7 +1,7 @@
 from sqlalchemy import (
     Table, MetaData, Column, Integer, String, Text, Float, ForeignKey, DateTime
 )
-import datetime
+
 from sqlalchemy.orm import mapper, relationship
 
 from games.domainmodel.model import Game, Publisher, Genre, User, Review
@@ -25,7 +25,7 @@ games_table = Table(
     Column('game_description', String(255), nullable=True),
     Column('game_image_url', String(255), nullable=True),
     Column('game_website_url', String(255), nullable=True),
-    Column('publisher_name', ForeignKey('publishers.name'))
+    Column('publisher_name', String(225),ForeignKey('publishers.name'))
 )
 
 genres_table = Table(
@@ -50,6 +50,11 @@ reviews_table = Table(
     Column('game_id', ForeignKey('games.game_id')),
     Column('user_id', ForeignKey('users.user_id')),
 )
+games_genres_table = Table(
+    'games_genres', metadata,
+    Column('game_id', Integer, ForeignKey('games.game_id')),
+    Column('genre_name', String, ForeignKey('genres.genre_name'))
+)
 
 
 def map_model_to_tables():
@@ -65,17 +70,22 @@ def map_model_to_tables():
         '_Game__description': games_table.c.game_description,
         '_Game__image_url': games_table.c.game_image_url,
         '_Game__website_url': games_table.c.game_website_url,
-        '_Game__publisher': relationship(Publisher)
+        '_Game__publisher': relationship(Publisher),
+        '_Game__reviews' : relationship(Review, backref='_Review__game'),
+        '_Game__genres': relationship(Genre, secondary=games_genres_table)
     })
 
     mapper(Genre, genres_table, properties={
-        '_Genre__genre_name': genres_table.c.genre_name,
+        '_Genre__genre_name': genres_table.c.genre_name
+
     })
 
     mapper(User, users_table, properties={
         '__User__user_id': users_table.c.user_id,
         '__User__username': users_table.c.username,
-        '__User__password': users_table.c.password
+        '__User__password': users_table.c.password,
+        '__User__reviews': relationship(Review, backref='_Review__user')
+
     })
 
     mapper(Review, reviews_table, properties={
@@ -85,5 +95,4 @@ def map_model_to_tables():
         '__Review__rating': reviews_table.c.rating,
         '__Review__game_id': reviews_table.c.game_id,
         '__Review__user_id': relationship(User)
-
     })

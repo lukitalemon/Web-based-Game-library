@@ -1,19 +1,29 @@
 from abc import ABC
 from typing import List
 
-from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
 from games.adapters.repository import AbstractRepository
 # from games.adapters.utils import search_string
 from games.domainmodel.model import Game, Publisher, Genre, User, Review
 
+from requests import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+
+DATABASE_URI  = 'sqlite:///games.db?check_same_thread=False'
+
+
+# Set up the SQLAlchemy engine and session
+engine = create_engine(DATABASE_URI, echo=True, pool_pre_ping=True)
+session_factory = scoped_session(sessionmaker(bind=engine))
 
 class SessionContextManager:
     def __init__(self, session_factory):
         self.__session_factory = session_factory
         self.__session = scoped_session(self.__session_factory)
-
+        
     def __enter__(self):
         return self
 
@@ -108,7 +118,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # region Genre_data
     def get_genres(self) -> List[Genre]:
-        genres = self._session_cm.session.query(Genre).all()
+        with self._session_cm as scm:
+            genres = scm.session.query(Genre).all()
         return genres
 
     def add_genre(self, genre: Genre):
@@ -125,9 +136,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     # endregion
 
     def search_games_by_title(self, title_string: str) -> List[Game]:
-<<<<<<< Updated upstream
-        pass
-=======
         games = self._session_cm.session.query(Game).filter(Game._Game__game_title.ilike(f"%{title_string}%")).all()
         return games
     
@@ -154,4 +162,4 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             print(f'User {user_name} was not found')
 
         return user
->>>>>>> Stashed changes
+    
