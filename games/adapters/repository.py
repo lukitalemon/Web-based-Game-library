@@ -83,7 +83,4 @@ class AbstractRepository(abc.ABC):  # Change from Abstract-repository to Abstrac
 
     def remove_game_from_wishlist(self, username, game):
         raise NotImplementedError
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
+

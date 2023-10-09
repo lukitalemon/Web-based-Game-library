@@ -17,12 +17,15 @@ from games.adapters.database_repository import SqlAlchemyRepository
 from games.adapters.repository_populate import populate
 from games.adapters.orm import metadata, map_model_to_tables
 
+from config import Config
+
 
 def create_app():
     """Construct the core application."""
 
     # Create the Flask app object.
     app = Flask(__name__)
+    app.config.from_object(Config)
 
     database_uri = 'sqlite:///games.db?check_same_thread=False'
     app.config['SQLALCHEMY_DATABASE_URI'] = database_uri

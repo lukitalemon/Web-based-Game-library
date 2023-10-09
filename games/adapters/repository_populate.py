@@ -3,9 +3,10 @@ from pathlib import Path
 
 from games.adapters.repository import AbstractRepository
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
+from games.adapters.csv_data_importer import load_users
 
 
-def populate(data_path: Path, repo: AbstractRepository):
+def populate(data_path: Path, repo: AbstractRepository, database_mode: bool):
 
     games_file_name = str(Path(data_path) / "games.csv")
 
@@ -17,6 +18,8 @@ def populate(data_path: Path, repo: AbstractRepository):
     games = reader.dataset_of_games
     genres = reader.dataset_of_genres
 
+    users = load_users(data_path, repo)
+
     # Add publishers to the repo
     repo.add_multiple_publishers(publishers)
 
@@ -25,3 +28,5 @@ def populate(data_path: Path, repo: AbstractRepository):
 
     # Add games to the repo
     repo.add_multiple_games(games)
+
+

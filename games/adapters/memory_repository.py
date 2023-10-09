@@ -52,9 +52,7 @@ class MemoryRepository(AbstractRepository):
     
     def get_games(self):
         return self.__games
-    
 
-    
     def get_games_by_genre(self, genre_name):
         genre_name = genre_name.lower()
         games_in_genre = [game for game in self.__games if genre_name in game.genres]
@@ -105,9 +103,6 @@ class MemoryRepository(AbstractRepository):
             self.add_publisher(publisher)
 
 
-    
-    
-    
 def populate(data_path: Path, repo: MemoryRepository):
     games_file_name = str(Path(data_path))
     reader = GameFileCSVReader(games_file_name)
