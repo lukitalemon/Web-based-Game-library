@@ -8,7 +8,7 @@ from games.adapters.repository import AbstractRepository
 # from games.adapters.utils import search_string
 from games.domainmodel.model import Game, Publisher, Genre, User, Review
 
-from requests import Session
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -148,11 +148,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         with self._session_cm as scm:
             scm.session.merge(user)
             scm.commit()
-    
-    def get_comments(self) -> List[Review]:
-        comments = self._session_cm.session.query(Review).all()
-        return comments
-    
+
     def get_user(self, user_name) -> User:
         user = None
         try:
@@ -162,4 +158,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             print(f'User {user_name} was not found')
 
         return user
+
+    def get_comments(self) -> List[Review]:
+        comments = self._session_cm.session.query(Review).all()
+        return comments
     

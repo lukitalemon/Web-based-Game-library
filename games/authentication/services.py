@@ -7,14 +7,17 @@ from games.domainmodel.model import User
 class NameNotUniqueException(Exception):
     pass
 
+
 class UnknownUserException(Exception):
     pass
+
 
 class AuthenticationException(Exception):
     pass
 
+
 def add_user(user_name: str, password: str, repo: AbstractRepository):
-    # Check that the given user name is available.
+    # Check that the given username is available.
     user = repo.get_user(user_name)
     if user is not None:
         raise NameNotUniqueException

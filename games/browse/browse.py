@@ -5,6 +5,7 @@ from games.adapters import database_repository as repo
 
 browse_blueprint = Blueprint('browse_bp', __name__)
 
+
 @browse_blueprint.route('/browse', methods=['GET'])
 def browse():
 

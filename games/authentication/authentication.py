@@ -16,6 +16,7 @@ from pprint import pprint
 
 authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication') 
 
+
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
