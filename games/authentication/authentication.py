@@ -23,6 +23,10 @@ def register():
     user_name_not_unique = None
 
     if form.validate_on_submit():
+
+        print(f"User Name: {form.user_name.data}")
+        print(f"Password: {form.password.data}")
+
         # Successful POST, i.e. the user name and password have passed validation checking.
         # Use the service layer to attempt to add the new user.
         try:
@@ -85,7 +89,6 @@ def login():
     )
 
 
-
 class PasswordValid:
     def __init__(self, message=None):
         if not message:
@@ -102,11 +105,13 @@ class PasswordValid:
             .has().digits()
         if not schema.validate(field.data):
             raise ValidationError(self.message)
-        
+
+
 @authentication_blueprint.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('home_bp.home'))
+
 
 def login_required(view):
     @wraps(view)
@@ -115,6 +120,7 @@ def login_required(view):
             return redirect(url_for('authentication_bp.login'))
         return view(**kwargs)
     return wrapped_view
+
 
 class RegistrationForm(FlaskForm):
     user_name = StringField('Username', [

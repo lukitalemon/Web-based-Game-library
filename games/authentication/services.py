@@ -27,6 +27,7 @@ def add_user(user_name: str, password: str, repo: AbstractRepository):
 
     # Create and store the new User, with password encrypted.
     user = User(user_name, password_hash)
+    print(f"Adding user: Username={user.username}, Password Hash={user.password}")
     repo.add_user(user)
 
 
@@ -37,6 +38,7 @@ def get_user(user_name: str, repo: AbstractRepository):
 
     return user_to_dict(user)
 
+
 def authenticate_user(user_name: str, password: str, repo: AbstractRepository):
     authenticated = False
 
@@ -45,6 +47,8 @@ def authenticate_user(user_name: str, password: str, repo: AbstractRepository):
         authenticated = check_password_hash(user.password, password)
     if not authenticated:
         raise AuthenticationException
+
+    print(f"Authenticating user: Username={user_name}, Password={password}, Authenticated={authenticated}")
 
 # ===================================================
 # Functions to convert model entities to dictionaries

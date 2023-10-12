@@ -144,6 +144,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.commit()
     
     def add_user(self, user: User):
+        print(f"Adding user to database: Username={user.username}, Password={user.password}")
         with self._session_cm as scm:
             scm.session.merge(user)
             scm.commit()
