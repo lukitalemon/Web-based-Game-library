@@ -19,6 +19,8 @@ def browse():
 
     all_genres = services.get_genres(repository)
 
+    genre_names = [genre.genre_name for genre in all_genres]  
+
     # Calculate the starting index of games for the current page
     start_index = (page - 1) * max_games_per_page
 
@@ -44,7 +46,7 @@ def browse():
         current_page=page,
         num_pages=num_pages,
         max_games_per_page=max_games_per_page,
-        all_genres=all_genres,
+        all_genres=genre_names,
         genre=genre,
         selected_genre=genre
     )
