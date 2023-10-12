@@ -49,13 +49,13 @@ def get_games_by_genre(repo_instance, genre_name: str, sorting_key=None):
     return game_dicts
 
 
-# def get_all_genres(repo: repo.SqlAlchemyRepository):
-#     all_genres = set()
+def get_all_genres(repo: repo.SqlAlchemyRepository):
+    all_genres = set()
 
-#     for game in repo.get_games():
-#         all_genres.update(genre.genre_name for genre in game.genres)
+    for game in repo.get_games():
+        all_genres.update(genre.genre_name for genre in game.genres)
 
-#     return sorted(all_genres)
+    return sorted(all_genres)
 
 
 def get_genres(repo_instance):

@@ -193,7 +193,6 @@ class Game:
             print(f"Could not find {genre} in list of genres.")
             pass
 
-
     def add_review(self, new_review):
         if not isinstance(new_review, Review) or new_review in self.__reviews:
             return

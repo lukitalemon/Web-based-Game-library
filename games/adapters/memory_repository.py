@@ -43,7 +43,6 @@ class MemoryRepository(AbstractRepository):
             genre_name_lower = genre.genre_name.lower()  # Convert the genre name to lowercase
             self.genres_dict[genre_name_lower] = []  # Initialize an empty list for this lowercase genre name
 
-
     def get_game(self, target_id: int):
         for game in self.__games:
             if game.game_id == target_id:
