@@ -81,18 +81,18 @@ def map_model_to_tables():
     })
 
     mapper(User, users_table, properties={
-        '__User__user_id': users_table.c.user_id,
-        '__User__username': users_table.c.username,
-        '__User__password': users_table.c.password,
-        '__User__reviews': relationship(Review, backref='_Review__user')
+        '_User__user_id': users_table.c.user_id,
+        '_User__username': users_table.c.username,
+        '_User__password': users_table.c.password,
+        '_User__reviews': relationship(Review, backref='_Review__user')
 
     })
 
     mapper(Review, reviews_table, properties={
-        '__Review__review_id': reviews_table.c.review_id,
-        '__Review__timestamp': reviews_table.c.timestamp,
-        '__Review__review_text': reviews_table.c.review_text,
-        '__Review__rating': reviews_table.c.rating,
-        '__Review__game_id': reviews_table.c.game_id,
-        '__Review__user_id': relationship(User)
+        '_Review__review_id': reviews_table.c.review_id,
+        '_Review__timestamp': reviews_table.c.timestamp,
+        '_Review__review_text': reviews_table.c.review_text,
+        '_Review__rating': reviews_table.c.rating,
+        '_Review__game_id': reviews_table.c.game_id,
+        '_Review__user_id': relationship(User)
     })

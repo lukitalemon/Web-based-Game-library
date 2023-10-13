@@ -152,8 +152,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_user(self, user_name) -> User:
         user = None
         try:
-            user = self._session_cm.session.query(
-                Game).filter(User.username == user_name).first()
+            user = self._session_cm.session.query(User).filter(User._User__username == user_name).first()
         except NoResultFound:
             print(f'User {user_name} was not found')
 

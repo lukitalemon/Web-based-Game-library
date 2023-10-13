@@ -21,7 +21,7 @@ authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='
 def register():
     form = RegistrationForm()
     user_name_not_unique = None
-
+    
     if form.validate_on_submit():
 
         print(f"User Name: {form.user_name.data}")
