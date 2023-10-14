@@ -51,7 +51,7 @@ def get_games_by_genre(repo_instance, genre_name: str, sorting_key=None):
 
 def get_all_genres(repo: repo.SqlAlchemyRepository):
     all_genres = set()
-
+    
     for game in repo.get_games():
         all_genres.update(genre.genre_name for genre in game.genres)
 
@@ -68,7 +68,7 @@ def search_games(repo_instance, query: str):
     query = query.lower()
     type = request.args.get('type')
 
-    for game in all_games:
+    for game in all_games:  
         if type == 'all':
             if (query in game['title'].lower()) or (query in game['publisher'].lower()) or (any(query in genre.lower() for genre in game['genres'])):
                 results.append(game)

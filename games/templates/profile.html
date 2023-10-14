@@ -34,8 +34,8 @@
             <div class="border">
                 <h2 class="title">Wishlist</h2>
                 <ul>
-                    {% if repo.repo_instance.wishlist_exists(session['user_name']) %}
-                        {% for game in repo.repo_instance.get_wishlist(session['user_name']).list_of_games() %}
+                    {% if repository.wishlist_exists(session['user_name']) %}
+                        {% for game in repository.get_user_wishlist(session['user_name']) %}
                             <li>{{ game.title }}</li>
                         {% endfor %}
                     {% else %}
