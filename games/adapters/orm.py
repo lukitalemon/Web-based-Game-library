@@ -4,7 +4,7 @@ from sqlalchemy import (
 
 from sqlalchemy.orm import mapper, relationship
 
-from games.domainmodel.model import Game, Publisher, Genre, User, Review
+from games.domainmodel.model import Game, Publisher, Genre, User, Review, Wishlist
 
 # global variable giving access to the MetaData (schema) information of the database
 metadata = MetaData()
@@ -56,6 +56,12 @@ games_genres_table = Table(
     Column('genre_name', String, ForeignKey('genres.genre_name'))
 )
 
+wishlist_table = Table(
+    'wishlists', metadata, 
+    Column('username', ForeignKey('users.username'), primary_key=True),
+    Column('game_id', ForeignKey('games.game_id'), primary_key=True)
+)
+
 
 def map_model_to_tables():
     mapper(Publisher, publishers_table, properties={
@@ -84,7 +90,8 @@ def map_model_to_tables():
         '_User__user_id': users_table.c.user_id,
         '_User__username': users_table.c.username,
         '_User__password': users_table.c.password,
-        '_User__reviews': relationship(Review, backref='_Review__user')
+        '_User__reviews': relationship(Review, backref='_Review__user'),
+        '_User__favourite_games': relationship(Game, secondary=wishlist_table)
 
     })
 
@@ -95,4 +102,11 @@ def map_model_to_tables():
         '_Review__rating': reviews_table.c.rating,
         '_Review__game_id': reviews_table.c.game_id,
         '_Review__user_id': relationship(User)
+    })
+
+    mapper(Wishlist, wishlist_table, properties={
+        '_Wishlist__username': wishlist_table.c.username,
+        '_Wishlist__game_id': wishlist_table.c.game_id,
+        '_Wishlist__user': relationship(User),
+        '_Wishlist__game': relationship(Game),
     })

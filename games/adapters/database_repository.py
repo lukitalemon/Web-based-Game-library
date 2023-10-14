@@ -6,7 +6,8 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from games.adapters.repository import AbstractRepository
 # from games.adapters.utils import search_string
-from games.domainmodel.model import Game, Publisher, Genre, User, Review
+from games.domainmodel.model import Game, Publisher, Genre, User, Review, Wishlist
+from games.adapters.orm import wishlist_table
 
 
 from sqlalchemy import create_engine
@@ -162,3 +163,37 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         comments = self._session_cm.session.query(Review).all()
         return comments
     
+    # Wishlist
+    def add_wishlist(self, wishlist):
+        with self._session_cm as scm:
+            scm.session.add(wishlist)
+            scm.commit()
+
+    def add_game_to_wishlist(self, user, game_id):
+        with self._session_cm as scm:
+            game = self._session_cm.session.query(Game).filter(Game._Game__game_id == game_id).one()
+            if user and game:
+                user.add_favourite_game(game)
+                scm.commit()
+
+
+    def remove_game_from_wishlist(self, user, game_id):
+        with self._session_cm as scm:
+            game = self._session_cm.session.query(Game).filter(Game._Game__game_id == game_id).one()
+            print(type(user), type(game))
+            if user and game:
+                user.remove_favourite_game(game)
+                scm.commit()
+
+
+    def wishlist_exists(self, username):
+        with self._session_cm as scm:
+            wishlist = scm.session.query(Game).join(wishlist_table).filter(wishlist_table.c.username == username).all()
+            return wishlist is not None
+        
+    def get_user_wishlist(self, username):
+        with self._session_cm as scm:
+            wishlist = scm.session.query(Game).join(wishlist_table).filter(wishlist_table.c.username == username).all()
+            return wishlist
+
+
