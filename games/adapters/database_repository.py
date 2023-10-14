@@ -140,8 +140,9 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         return games
     
     def add_comment(self, comment: Review):
+        super().add_comment(comment)
         with self._session_cm as scm:
-            scm.session.merge(comment)
+            scm.session.add(comment)
             scm.commit()
     
     def add_user(self, user: User):

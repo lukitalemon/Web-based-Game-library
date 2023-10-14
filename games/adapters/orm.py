@@ -44,8 +44,7 @@ users_table = Table(
 reviews_table = Table(
     'reviews', metadata,
     Column('review_id', Integer, primary_key=True, autoincrement=True),
-    Column('timestamp', DateTime, nullable=False),
-    Column('review_text', String(255), nullable=False),
+    Column('comment', String(255), nullable=False),
     Column('rating', Integer, nullable=False),
     Column('game_id', ForeignKey('games.game_id')),
     Column('user_id', ForeignKey('users.user_id')),
@@ -97,8 +96,7 @@ def map_model_to_tables():
 
     mapper(Review, reviews_table, properties={
         '_Review__review_id': reviews_table.c.review_id,
-        '_Review__timestamp': reviews_table.c.timestamp,
-        '_Review__review_text': reviews_table.c.review_text,
+        '_Review__comment': reviews_table.c.comment,
         '_Review__rating': reviews_table.c.rating,
         '_Review__game_id': reviews_table.c.game_id,
         '_Review__user_id': relationship(User)
