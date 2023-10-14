@@ -2,7 +2,7 @@ from abc import ABC
 from typing import List
 
 from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import NoResultFound
 
 from games.adapters.repository import AbstractRepository
 # from games.adapters.utils import search_string
