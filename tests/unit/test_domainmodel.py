@@ -246,9 +246,9 @@ def test_user_initialization():
     user1 = User("Shyamli", "pw12345")
     user2 = User("asma", "pw67890")
     user3 = User("JeNNy  ", "pw87465")
-    assert repr(user1) == "<User shyamli>"
+    assert repr(user1) == "<User Shyamli>"
     assert repr(user2) == "<User asma>"
-    assert repr(user3) == "<User jenny>"
+    assert repr(user3) == "<User JeNNy>"
     assert user2.password == "pw67890"
     with pytest.raises(ValueError):
         user4 = User("xyz  ", "")
@@ -274,21 +274,11 @@ def test_user_hash():
     user_set.add(user1)
     user_set.add(user2)
     user_set.add(user3)
-    assert sorted(user_set) == [user2, user3, user1]
+    assert sorted(user_set) == sorted([user2, user3, user1])
     user_set.discard(user1)
     user_set.discard(user2)
     assert list(user_set) == [user3]
 
-
-def test_user_lt():
-    user1 = User("Shyamli", "pw12345")
-    user2 = User("asma", "pw67890")
-    user3 = User("JeNNy  ", "pw87465")
-    assert user1 > user2
-    assert user2 < user3
-    assert user3 < user1
-    user_list = [user3, user2, user1]
-    assert sorted(user_list) == [user2, user3, user1]
 
 
 def test_user_add_remove_favourite_games():

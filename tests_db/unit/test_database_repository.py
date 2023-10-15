@@ -185,3 +185,58 @@ def test_repository_can_search_games_by_title(session_factory):
     output = repo.search_games_by_title("test")
     assert output[0] == game
 
+def test_repository_can_add_user(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    user = User("test", "JohnHad12")
+    user2 = User("test2", "Pompper123")
+    repo.add_user(user)
+    repo.add_user(user2)
+    output = repo.get_user("test")
+    assert output == user
+
+def test_repository_can_get_user(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    user = User("test", "JohnHad12")
+    repo.add_user(user)
+    output = repo.get_user("test")
+    assert output == user
+
+def test_repository_returns_None_if_no_user(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    output = repo.get_user("hi")
+    assert output == None
+
+def test_repository_can_add_comment(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    game = repo.get_game(7940)
+    user = User("test", "Johnnnnyyy123")
+    comment = make_comment("good", user, game, 3)
+    repo.add_comment(comment)
+    output = repo.get_comments()[0]
+    assert output == comment
+
+def test_repository_can_get_comments(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    game = repo.get_game(7940)
+    user = User("test", "Johnnnnyyy123")
+    user2 = User("test2", "Ponnnyy123")
+    user3 = User("test3", "Donntt123")
+    comment = make_comment("good", user, game, 3)
+    comment2 = make_comment("Very nice", user2, game, 2)
+    comment3 = make_comment("sugoyyyy", user3, game, 4)
+    repo.add_comment(comment)
+    repo.add_comment(comment2)
+    repo.add_comment(comment3)
+    output = repo.get_comments()
+    assert len(output) == 3
+
+def test_repository_can_add_wishlist(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    user = User("AsianHard123", "Jonfsf23")
+    game = repo.get_game(7940)
+    wishlist = Wishlist(user)
+    wishlist.add_game(game)
+    repo.add_wishlist(wishlist)
+    output = repo.wishlist_exists("AsianHard123")
+    assert output == True
+

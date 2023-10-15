@@ -396,7 +396,7 @@ def test_add_user(in_memory_repo):
     assert user_as_dict['user_name'] == username
 
     # Check that password has been encrypted.
-    assert user_as_dict['password'].startswith('pbkdf2:sha256:')
+    assert user_as_dict['password'].startswith('scrypt:32768:8:1')
 
 def test_cannot_add_user_with_existing_name(in_memory_repo):
     username1 = 'asianhard123'
