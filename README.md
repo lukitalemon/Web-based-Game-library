@@ -1,4 +1,4 @@
-#Games WebApp Assignment
+##Games WebApp Assignment
 CompSci 235 in Semester 2, 2023.
 
 ## Installation
